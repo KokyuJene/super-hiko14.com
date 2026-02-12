@@ -423,7 +423,11 @@ html[data-theme="dark"] .scroll-icon-dark {
   font-size: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
 }
 
 .nav-button::after {

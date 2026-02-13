@@ -1,12 +1,17 @@
 // Theme management directly as early as possible to avoid flash
 (function() {
-  let savedTheme = 'light';
+  let theme = 'light';
   try {
-    savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      theme = savedTheme;
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      theme = 'dark';
+    }
   } catch (_) {
-    savedTheme = 'light';
+    theme = 'light';
   }
-  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.documentElement.setAttribute('data-theme', theme);
 })();
 
 document.addEventListener('DOMContentLoaded', () => {

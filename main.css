@@ -282,6 +282,7 @@ a:hover::after {
   display: block;
   text-decoration: none;
   color: inherit;
+  margin: 10px 0;
 }
 
 .tool-item::after {

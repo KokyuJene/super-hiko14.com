@@ -33,11 +33,25 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('is-visible');
+        // 他の要素よりも早く表示させるための遅延解消（オプション）
       }
     });
   }, observerOptions);
 
-  document.querySelectorAll('.box').forEach(el => observer.observe(el));
+  document.querySelectorAll('.box').forEach(el => {
+    observer.observe(el);
+  });
+
+  // 初回チェック: ページ読み込み時にすでに表示範囲内にある要素を即座に表示
+  // 少し遅らせることで、js-animateクラス付与直後の状態からアニメーションを開始させる
+  setTimeout(() => {
+    document.querySelectorAll('.box').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.9) {
+        el.classList.add('is-visible');
+      }
+    });
+  }, 100);
 
   // Blog page functionality
   if (document.body.classList.contains('blog-page')) {

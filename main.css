@@ -884,6 +884,7 @@ html[data-theme="dark"] .error-description {
 
 .tab-item {
   background-color: #f0f0f0;
+  color: #000;
   border: none;
   border-radius: 20px;
   padding: 10px 25px;

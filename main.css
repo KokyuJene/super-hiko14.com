@@ -40,6 +40,7 @@ body {
   color: #000;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 a {
@@ -346,7 +347,7 @@ a:hover::after {
 }
 
 .footer {
-  font-size: 0.85rem;
+  font-size: clamp(12px, 1.2vw, 18px);
   color: #999;
   margin-top: 20px;
   padding: 0 20px;
@@ -366,6 +367,7 @@ a:hover::after {
   color: #676767;
   margin-bottom: 1.5vw;
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .footer-credit-main {
@@ -377,6 +379,7 @@ a:hover::after {
   display: flex;
   align-items: baseline;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .footer-credit-dot {

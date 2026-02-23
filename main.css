@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+
 @font-face {
     font-family: 'jost';
     src: url('https://kokyujene.github.io/fonts/Jost-Bold.ttf') format('truetype');
@@ -94,6 +97,10 @@ html[data-theme="dark"] .nav-button:hover {
 
 html[data-theme="dark"] .footer {
   color: #555;
+}
+
+html[data-theme="dark"] .footer-credit-label {
+  color: #676767;
 }
 
 html[data-theme="dark"] .scroll-indicator {
@@ -344,6 +351,42 @@ a:hover::after {
   margin-top: 20px;
   padding: 0 20px;
   position: relative;
+}
+
+.footer-credit {
+  margin-top: 6vw;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.footer-credit-label {
+  font-family: "Google Sans Flex", "Inter", sans-serif;
+  font-size: 5.4vw;
+  font-weight: 100;
+  color: #676767;
+  margin-bottom: 1.5vw;
+  letter-spacing: -0.01em;
+}
+
+.footer-credit-main {
+  font-family: "Jost", sans-serif;
+  font-size: 15vw;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.footer-credit-dot {
+  display: inline-block;
+  background: linear-gradient(45deg, #baffc0 20%, #275766 45%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  font-size: 15vw;
 }
 
 .footer-controls {
@@ -1017,5 +1060,142 @@ html[data-theme="dark"] .link-row {
 
   .info-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =====================
+   Diary page styles
+   ===================== */
+
+.diary-container {
+  padding-top: 40vh;
+}
+
+.diary-header-box {
+  margin-bottom: 20vh;
+}
+
+.diary-eyebrow {
+  font-size: 0.8rem;
+  color: #aaa;
+  letter-spacing: 0.15em;
+  margin: 0 0 12px;
+  text-transform: lowercase;
+}
+
+html[data-theme="dark"] .diary-eyebrow {
+  color: #555;
+}
+
+.title-dot,
+.diary-title-dot {
+  display: inline-block;
+  background: linear-gradient(45deg, #baffc0 20%, #275766 45%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.diary-entries-box {
+  width: 100%;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  margin-bottom: 30vh;
+}
+
+.diary-month-group {
+  margin-bottom: 60px;
+}
+
+.diary-month-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: #aaa;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  font-weight: normal;
+}
+
+html[data-theme="dark"] .diary-month-label {
+  color: #555;
+  border-bottom-color: #1e1e1e;
+}
+
+.diary-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.diary-entry {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 20px;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+html[data-theme="dark"] .diary-entry {
+  border-bottom-color: #161616;
+}
+
+.diary-entry:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+
+html[data-theme="dark"] .diary-entry:first-child {
+  border-top-color: #161616;
+}
+
+.diary-date {
+  font-size: 0.85rem;
+  color: #bbb;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.7;
+  flex-shrink: 0;
+}
+
+html[data-theme="dark"] .diary-date {
+  color: #444;
+}
+
+.diary-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #222;
+  word-break: break-all;
+}
+
+html[data-theme="dark"] .diary-text {
+  color: #c0c0c0;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .diary-container {
+    padding-top: 30vh;
+  }
+
+  .diary-entries-box {
+    padding: 0 4px;
+  }
+
+  .diary-entry {
+    grid-template-columns: 30px 1fr;
+    gap: 14px;
+    padding: 12px 0;
+  }
+
+  .diary-text {
+    font-size: 0.95rem;
   }
 }

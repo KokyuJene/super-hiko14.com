@@ -34,13 +34,19 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
+
 body {
   margin: 0;
   background-color: #fff;
   color: #000;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
 }
 
 a {
@@ -102,10 +108,6 @@ html[data-theme="dark"] .footer {
 
 html[data-theme="dark"] .footer-credit-label {
   color: #676767;
-}
-
-html[data-theme="dark"] .footer-credit-main {
-  color: #ffffff;
 }
 
 html[data-theme="dark"] .scroll-indicator {
@@ -351,7 +353,7 @@ a:hover::after {
 }
 
 .footer {
-  font-size: clamp(12px, 1.2vw, 18px);
+  font-size: 0.85rem;
   color: #999;
   margin-top: 20px;
   padding: 0 20px;
@@ -376,14 +378,15 @@ a:hover::after {
 
 .footer-credit-main {
   font-family: "Jost", sans-serif;
-  font-size: 15vw;
+  font-size: 13vw;
   font-weight: 400;
-  color: #000000;
+  color: #ffffff;
   line-height: 1;
-  display: flex;
+  display: inline-flex;
   align-items: baseline;
   justify-content: center;
   white-space: nowrap;
+  max-width: 100%;
 }
 
 .footer-credit-dot {
@@ -393,7 +396,7 @@ a:hover::after {
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   color: transparent !important;
-  font-size: 15vw;
+  font-size: 13vw;
 }
 
 .footer-controls {
@@ -1082,7 +1085,8 @@ html[data-theme="dark"] .link-row {
   margin-bottom: 20vh;
 }
 
-.diary-eyebrow {
+.diary-eyebrow,
+.page-eyebrow {
   font-size: 0.8rem;
   color: #aaa;
   letter-spacing: 0.15em;
@@ -1090,12 +1094,13 @@ html[data-theme="dark"] .link-row {
   text-transform: lowercase;
 }
 
-html[data-theme="dark"] .diary-eyebrow {
+html[data-theme="dark"] .diary-eyebrow,
+html[data-theme="dark"] .page-eyebrow {
   color: #555;
 }
 
-.title-dot,
-.diary-title-dot {
+.diary-title-dot,
+.title-dot {
   display: inline-block;
   background: linear-gradient(45deg, #baffc0 20%, #275766 45%);
   -webkit-background-clip: text;

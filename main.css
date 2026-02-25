@@ -1,30 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,200&display=swap');
 
 @font-face {
     font-family: 'jost';
-    src: url('https://kokyujene.github.io/fonts/Jost-Bold.ttf') format('truetype');
+    src: url('https://kokyujene.super-hiko14.com/fonts/Jost-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'jost';
-    src: url('https://kokyujene.github.io/fonts/Jost.ttf') format('truetype');
+    src: url('https://kokyujene.super-hiko14.com/fonts/Jost.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'zenkaku';
-    src: url('https://kokyujene.github.io/fonts/zenkaku.ttf') format('truetype');
+    src: url('https://kokyujene.super-hiko14.com/fonts/zenkaku.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'zenkaku';
-    src: url('https://kokyujene.github.io/fonts/zenkaku-Bold.ttf') format('truetype');
+    src: url('https://kokyujene.super-hiko14.com/fonts/zenkaku-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
@@ -108,6 +108,10 @@ html[data-theme="dark"] .footer {
 
 html[data-theme="dark"] .footer-credit-label {
   color: #676767;
+}
+
+html[data-theme="dark"] .footer-credit-main {
+  color: #ffffff;
 }
 
 html[data-theme="dark"] .scroll-indicator {
@@ -367,7 +371,7 @@ a:hover::after {
 }
 
 .footer-credit-label {
-  font-family: "Google Sans Flex", "Inter", sans-serif;
+  font-family: 'Google Sans Flex', 'zenkaku', sans-serif;
   font-size: 5.4vw;
   font-weight: 100;
   color: #676767;
@@ -377,10 +381,10 @@ a:hover::after {
 }
 
 .footer-credit-main {
-  font-family: "Jost", sans-serif;
+  font-family: "jost", sans-serif;
   font-size: 13vw;
   font-weight: 400;
-  color: #ffffff;
+  color: #000000;
   line-height: 1;
   display: inline-flex;
   align-items: baseline;
@@ -908,13 +912,18 @@ html[data-theme="dark"] .error-description {
   object-fit: cover;
   margin: 0 auto 20px;
   display: block;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
 }
 
 .profile-image:hover {
-  transform: scale(1.05);
+  animation: shake 0.1s infinite alternate;
 }
+
+@keyframes shake {
+  0% { transform: translateY(0) rotate(-2deg); }
+  100% { transform: translateY(-10px) rotate(2deg); }
+}
+
 
 .profile-name {
   font-size: 1.8rem;

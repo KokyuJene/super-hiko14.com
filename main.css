@@ -1121,6 +1121,13 @@ html[data-theme="dark"] .tab-item.active {
   transition: padding-left 0.3s ease, background-color 0.3s ease;
   overflow: hidden;
   color: inherit;
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .link-row:hover {
+    padding-left: 18px;
+  }
 }
 
 .link-row::after {
@@ -1144,10 +1151,6 @@ html[data-theme="dark"] .tab-item.active {
 
 .link-row:hover::before {
   height: 100%;
-}
-
-.link-row:hover {
-  padding-left: 18px;
 }
 
 .link-row-info {
@@ -1240,12 +1243,25 @@ html[data-theme="dark"] .link-row:hover .link-row-arrow {
 
 @media (max-width: 768px) {
   .profile-image {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
   }
 
   .profile-name {
-    font-size: 1.5rem;
+    font-size: 1.45rem;
+  }
+
+  .profile-role {
+    font-size: 0.82rem;
+  }
+
+  .tab-menu {
+    gap: 8px;
+  }
+
+  .tab-item {
+    padding: 7px 16px;
+    font-size: 0.82rem;
   }
 
   .info-grid {
@@ -1253,16 +1269,40 @@ html[data-theme="dark"] .link-row:hover .link-row-arrow {
   }
 
   .info-item {
-    padding: 14px 16px;
+    padding: 12px 14px;
+  }
+
+  .info-grid + .info-item {
+    padding: 12px 14px;
+  }
+
+  .info-label {
+    font-size: 0.65rem;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
   }
 
   .link-grid {
     max-width: 100%;
   }
 
-  .tab-item {
-    padding: 7px 18px;
-    font-size: 0.85rem;
+  .link-row {
+    padding: 14px 8px;
+  }
+
+  .link-handle {
+    font-size: 0.95rem;
+  }
+
+  .link-row-arrow {
+    font-size: 0.9rem;
+    margin-left: 10px;
+  }
+
+  .note-text {
+    font-size: 0.78rem;
   }
 }
 
@@ -1608,9 +1648,8 @@ html[data-theme="dark"] .diary-today .diary-text {
   font-weight: bold;
   margin: 0 0 5px 0;
   line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .link-card-domain {
@@ -1619,9 +1658,8 @@ html[data-theme="dark"] .diary-today .diary-text {
   letter-spacing: 0.04em;
   color: #aaa;
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .link-card-arrow {
@@ -1668,20 +1706,28 @@ html[data-theme="dark"] .link-card:hover .link-card-arrow {
 /* Link Hub — Mobile */
 @media screen and (max-width: 768px) {
   .link-card {
-    gap: 16px;
-    padding: 22px 0;
+    gap: 14px;
+    padding: 20px 0;
   }
 
   .link-card:hover {
-    gap: 20px;
+    gap: 18px;
   }
 
   .link-card-title {
-    font-size: 1.05rem;
+    font-size: 1rem;
+  }
+
+  .link-card-domain {
+    font-size: 0.72rem;
   }
 
   .link-card-num {
-    font-size: 0.7rem;
-    width: 20px;
+    font-size: 0.68rem;
+    width: 18px;
+  }
+
+  .link-card-arrow {
+    font-size: 0.9rem;
   }
 }

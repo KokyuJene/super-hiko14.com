@@ -395,7 +395,7 @@ a:hover::after {
 
 .footer-credit-dot {
   display: inline-block;
-  background: linear-gradient(45deg, #baffc0 20%, #275766 45%) !important;
+  background: linear-gradient(315deg, #275766 15%, #baffc0 33%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

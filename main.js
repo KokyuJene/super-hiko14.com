@@ -57,7 +57,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.body.classList.contains('blog-page')) {
     initBlogPage();
   }
+
+  // Diary page functionality
+  if (document.body.classList.contains('diary-page')) {
+    initDiaryPage();
+  }
 });
+
+function initDiaryPage() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = now.getDate();
+  const monthLabel = `${year}.${month}`;
+
+  document.querySelectorAll('.diary-month-group').forEach(group => {
+    const label = group.querySelector('.diary-month-label');
+    if (label && label.textContent.trim() === monthLabel) {
+      group.querySelectorAll('.diary-entry').forEach(entry => {
+        const dateEl = entry.querySelector('.diary-date');
+        if (dateEl && parseInt(dateEl.textContent.trim(), 10) === day) {
+          entry.classList.add('diary-today');
+        }
+      });
+    }
+  });
+}
 
 function initTheme() {
   // Theme toggle button

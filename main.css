@@ -1560,6 +1560,10 @@ html[data-theme="dark"] .diary-today .diary-text {
     padding: 11px 8px 11px 0;
   }
 
+  .diary-today {
+    padding-left: 10px;
+  }
+
   .diary-entry:hover {
     padding-left: 10px;
   }

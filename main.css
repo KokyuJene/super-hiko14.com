@@ -1817,3 +1817,93 @@ html[data-theme="dark"] .legal-lead {
     margin-bottom: 8vh;
   }
 }
+
+/* =====================
+   Birthday Section Styles
+   ===================== */
+
+.birthday-section {
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe8d6 100%);
+  border-radius: 12px;
+  padding: 40px;
+}
+
+html[data-theme="dark"] .birthday-section {
+  background: linear-gradient(135deg, #2a2410 0%, #1f1a0f 100%);
+}
+
+.birthday-content {
+  margin: 20px 0;
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.today-date {
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.date-label {
+  font-weight: bold;
+  color: #666;
+  display: inline-block;
+  min-width: 80px;
+}
+
+html[data-theme="dark"] .date-label {
+  color: #aaa;
+}
+
+.date-value {
+  font-family: 'Google Sans Flex', 'jost', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #d4a574;
+}
+
+html[data-theme="dark"] .date-value {
+  color: #e8c59e;
+}
+
+.birthday-message {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin: 16px 0;
+  color: #333;
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  border-left: 4px solid #d4a574;
+}
+
+html[data-theme="dark"] .birthday-message {
+  background-color: rgba(30, 26, 15, 0.8);
+  color: #d0d0d0;
+  border-left-color: #e8c59e;
+}
+
+.days-counter {
+  font-size: 1rem;
+  margin-top: 16px;
+  color: #666;
+  font-style: italic;
+}
+
+html[data-theme="dark"] .days-counter {
+  color: #aaa;
+}
+
+@media screen and (max-width: 768px) {
+  .birthday-section {
+    padding: 24px;
+  }
+
+  .birthday-content {
+    font-size: 1rem;
+  }
+
+  .birthday-message {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}

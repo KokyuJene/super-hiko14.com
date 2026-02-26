@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Scroll to top functionality
   initScrollToTop();
 
+  // Birthday section initialization
+  initBirthday();
+
   const observerOptions = {
     root: null,
     rootMargin: "0px 0px -15% 0px",
@@ -231,4 +234,64 @@ function initBlogPage() {
     searchQuery = e.target.value;
     renderBlogPosts();
   });
+}
+
+// Birthday section initialization
+function initBirthday() {
+  const birthdaySection = document.querySelector('.birthday-section');
+  if (!birthdaySection) return;
+
+  // Get birthday month/day from data attributes (default: 12/31)
+  const birthdayMonth = parseInt(birthdaySection.getAttribute('data-birthday-month')) || 12;
+  const birthdayDay = parseInt(birthdaySection.getAttribute('data-birthday-day')) || 31;
+
+  const todayDateEl = document.getElementById('today-date');
+  const birthdayMessageEl = document.getElementById('birthday-message');
+  const daysCounterEl = document.getElementById('days-counter');
+
+  function updateBirthdayInfo() {
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1;
+    const currentDay = today.getDate();
+
+    // Format today's date
+    const monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    const dayOfWeek = ['日', '月', '火', '水', '木', '金', '土'];
+    const todayFormatted = `${currentYear}年 ${monthNames[today.getMonth()]} ${currentDay}日 (${dayOfWeek[today.getDay()]})`;
+    todayDateEl.textContent = todayFormatted;
+
+    // Check if today is the birthday
+    const isBirthday = currentMonth === birthdayMonth && currentDay === birthdayDay;
+
+    if (isBirthday) {
+      // Today is the birthday!
+      birthdayMessageEl.innerHTML = '🎉 <strong>本日は誕生日です！おめでとうございます！</strong> 🎉';
+      birthdayMessageEl.style.fontSize = '1.2rem';
+      birthdayMessageEl.style.fontWeight = 'bold';
+      daysCounterEl.textContent = '今日があなたの特別な日です。最高の1日を過ごしてください！';
+    } else {
+      // Calculate days until the next birthday
+      let nextBirthdayDate = new Date(currentYear, birthdayMonth - 1, birthdayDay);
+      
+      // If the birthday has already passed this year, calculate for next year
+      if (nextBirthdayDate < today) {
+        nextBirthdayDate = new Date(currentYear + 1, birthdayMonth - 1, birthdayDay);
+      }
+
+      const timeDiff = nextBirthdayDate.getTime() - today.getTime();
+      const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+      const nextBirthdayFormatted = `${nextBirthdayDate.getFullYear()}年 ${monthNames[nextBirthdayDate.getMonth()]} ${nextBirthdayDate.getDate()}日`;
+      
+      birthdayMessageEl.textContent = `次の誕生日は ${nextBirthdayFormatted} です。`;
+      daysCounterEl.textContent = `あと ${daysLeft} 日です。`;
+    }
+  }
+
+  // Initial update
+  updateBirthdayInfo();
+
+  // Update at midnight
+  setTimeout(updateBirthdayInfo, (24 - new Date().getHours()) * 60 * 60 * 1000);
 }

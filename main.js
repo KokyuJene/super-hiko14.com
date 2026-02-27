@@ -14,6 +14,54 @@
   document.documentElement.setAttribute('data-theme', theme);
 })();
 
+// Page transition progress bar
+(function() {
+  function getBar() {
+    let bar = document.getElementById('nav-progress');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'nav-progress';
+      document.body.appendChild(bar);
+    }
+    return bar;
+  }
+
+  function startProgress() {
+    const bar = getBar();
+    bar.classList.remove('nav-progress-done');
+    // リフローを強制してから開始
+    void bar.offsetWidth;
+    bar.classList.add('nav-progress-running');
+  }
+
+  function completeProgress() {
+    const bar = document.getElementById('nav-progress');
+    if (!bar) return;
+    bar.classList.remove('nav-progress-running');
+    void bar.offsetWidth;
+    bar.classList.add('nav-progress-done');
+    setTimeout(() => bar.classList.remove('nav-progress-done'), 700);
+  }
+
+  // 新ページの読み込み完了時に完了アニメーション
+  window.addEventListener('pageshow', completeProgress);
+
+  // リンククリック時に開始
+  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      if (link.target === '_blank') return;
+      if (link.hasAttribute('download')) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      // javascript: リンクを除外
+      if (href.startsWith('javascript:')) return;
+      startProgress();
+    });
+  });
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   document.body.classList.add('js-animate');
 

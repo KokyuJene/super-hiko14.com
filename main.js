@@ -16,49 +16,44 @@
 
 // Page transition progress bar
 (function() {
-  function getBar() {
-    let bar = document.getElementById('nav-progress');
-    if (!bar) {
-      bar = document.createElement('div');
-      bar.id = 'nav-progress';
-      document.body.appendChild(bar);
-    }
+  var SK = 'navProgress';
+
+  function createBar() {
+    var bar = document.createElement('div');
+    bar.id = 'nav-progress';
+    document.body.insertBefore(bar, document.body.firstChild);
     return bar;
   }
 
-  function startProgress() {
-    const bar = getBar();
-    bar.classList.remove('nav-progress-done');
-    // リフローを強制してから開始
-    void bar.offsetWidth;
-    bar.classList.add('nav-progress-running');
-  }
-
-  function completeProgress() {
-    const bar = document.getElementById('nav-progress');
-    if (!bar) return;
-    bar.classList.remove('nav-progress-running');
-    void bar.offsetWidth;
-    bar.classList.add('nav-progress-done');
-    setTimeout(() => bar.classList.remove('nav-progress-done'), 700);
-  }
-
-  // 新ページの読み込み完了時に完了アニメーション
-  window.addEventListener('pageshow', completeProgress);
-
-  // リンククリック時に開始
-  document.addEventListener('DOMContentLoaded', () => {
-    document.addEventListener('click', (e) => {
-      const link = e.target.closest('a');
+  // ページA: リンククリック時にフラグを立てる
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('a');
       if (!link) return;
       if (link.target === '_blank') return;
       if (link.hasAttribute('download')) return;
-      const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-      // javascript: リンクを除外
-      if (href.startsWith('javascript:')) return;
-      startProgress();
+      var href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+      try { sessionStorage.setItem(SK, '1'); } catch(_) {}
     });
+
+    // ページB: 到着時にフラグを確認してアニメーション
+    var pending;
+    try { pending = sessionStorage.getItem(SK); } catch(_) {}
+    if (pending) {
+      try { sessionStorage.removeItem(SK); } catch(_) {}
+      var bar = createBar();
+      // 山形: 長い右上がりから 100% までスゾッと引き、その後フェード
+      bar.classList.add('nav-progress-arrive-start');
+      // リフロー寧
+      void bar.offsetWidth;
+      bar.classList.remove('nav-progress-arrive-start');
+      bar.classList.add('nav-progress-arrive');
+      setTimeout(function() {
+        bar.classList.add('nav-progress-arrive-done');
+        setTimeout(function() { bar.remove(); }, 600);
+      }, 380);
+    }
   });
 })();
 

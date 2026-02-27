@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Theme management initialize buttons
   initTheme();
+
+  // Site-wide hamburger navigation
+  initSiteNav();
+
+  // About page tabs (?tab=overview/details/links)
+  initAboutTabs();
   
   // Scroll to top functionality
   initScrollToTop();
@@ -66,6 +72,71 @@ document.addEventListener('DOMContentLoaded', () => {
     initDiaryPage();
   }
 });
+
+function initAboutTabs() {
+  const tabs = document.querySelectorAll('.tab-item');
+  const contents = document.querySelectorAll('.tab-content');
+  if (!tabs.length || !contents.length || tabs.length !== contents.length) return;
+
+  const tabKeys = ['overview', 'details', 'links'];
+
+  function resolveTabIndex(rawTab) {
+    if (!rawTab) return 0;
+    const value = String(rawTab).trim().toLowerCase();
+
+    if (/^\d+$/.test(value)) {
+      const index = parseInt(value, 10);
+      return index >= 0 && index < tabKeys.length ? index : 0;
+    }
+
+    const aliases = {
+      overview: 0,
+      summary: 0,
+      gaiyou: 0,
+      '概要': 0,
+      details: 1,
+      detail: 1,
+      shosai: 1,
+      '詳細': 1,
+      links: 2,
+      link: 2,
+      'リンク': 2
+    };
+
+    return aliases[value] ?? 0;
+  }
+
+  function applyTab(index, updateUrl) {
+    tabs.forEach((tab, i) => {
+      tab.classList.toggle('active', i === index);
+    });
+
+    contents.forEach((content, i) => {
+      content.classList.toggle('active', i === index);
+    });
+
+    if (updateUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', tabKeys[index] || tabKeys[0]);
+      window.history.replaceState({}, '', url);
+    }
+  }
+
+  const initialTab = new URLSearchParams(window.location.search).get('tab');
+  applyTab(resolveTabIndex(initialTab), false);
+
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => {
+      applyTab(i, true);
+    });
+  });
+
+  window.switchTab = (index) => {
+    const next = Number(index);
+    if (Number.isNaN(next) || next < 0 || next >= tabs.length) return;
+    applyTab(next, true);
+  };
+}
 
 function initDiaryPage() {
   const now = new Date();
@@ -234,6 +305,104 @@ function initBlogPage() {
     searchQuery = e.target.value;
     renderBlogPosts();
   });
+}
+
+// Site-wide hamburger navigation
+function initSiteNav() {
+  const nav    = document.querySelector('.site-nav');
+  const toggle = document.querySelector('.site-nav-toggle');
+  const drawer = document.querySelector('.site-nav-drawer');
+  if (!toggle || !drawer || !nav) return;
+
+  /* ---------- open / close ---------- */
+  function openNav() {
+    toggle.setAttribute('aria-expanded', 'true');
+    drawer.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeNav() {
+    toggle.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeNav() : openNav();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.site-nav')) closeNav();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeNav();
+  });
+
+  drawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => closeNav());
+  });
+
+  /* ---------- box-tracking position ---------- */
+  const boxes = Array.from(document.querySelectorAll('.box'));
+  if (!boxes.length) return;
+
+  let lastBoxIdx = -1;
+  let rafId = null;
+  let transitionTimer = null;
+
+  function findActiveBoxIndex() {
+    let idx = 0;
+    for (let i = 0; i < boxes.length; i++) {
+      if (boxes[i].getBoundingClientRect().top < window.innerHeight) idx = i;
+    }
+    return idx;
+  }
+
+  function applyNavPosition() {
+    // スマホは CSS 固定に任せる
+    if (window.innerWidth <= 680) {
+      nav.style.top = '';
+      lastBoxIdx = -1;
+      clearTimeout(transitionTimer);
+      return;
+    }
+
+    const idx  = findActiveBoxIndex();
+    const rect = boxes[idx].getBoundingClientRect();
+    const minTop = 12;
+    const maxTop = window.innerHeight - 64;
+    const targetTop = Math.min(maxTop, Math.max(minTop, rect.top - 60));
+
+    if (idx !== lastBoxIdx) {
+      nav.style.transition = 'top 0.38s cubic-bezier(0.4, 0, 0.2, 1)';
+      clearTimeout(transitionTimer);
+      transitionTimer = setTimeout(() => {
+        nav.style.transition = 'none';
+      }, 420);
+      lastBoxIdx = idx;
+    }
+
+    nav.style.top = targetTop + 'px';
+  }
+
+  function onScroll() {
+    if (rafId) return;
+    rafId = requestAnimationFrame(() => {
+      applyNavPosition();
+      rafId = null;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => {
+    lastBoxIdx = -1;
+    applyNavPosition();
+  });
+
+  // 初回位置設定（アニメーション不要）
+  nav.style.transition = 'none';
+  applyNavPosition();
 }
 
 // Birthday section initialization

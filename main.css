@@ -1907,3 +1907,367 @@ html[data-theme="dark"] .days-counter {
     padding: 12px;
   }
 }
+
+/* =========================================
+   Site Navigation (Hamburger Menu)
+   ========================================= */
+
+.site-nav {
+  position: fixed;
+  top: 20px;
+  right: max(16px, calc((100vw - 680px) / 2));
+  z-index: 1000;
+  transition: top 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Toggle button ---- */
+.site-nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 0 0 0 rgba(109, 219, 176, 0);
+  transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.site-nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 0 rgba(109, 219, 176, 0);
+  border-color: rgba(0, 0, 0, 0.14);
+}
+
+.site-nav-toggle[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(109, 219, 176, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(109, 219, 176, 0.15);
+}
+
+.site-nav-toggle span {
+  display: block;
+  height: 1.5px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.32s ease,
+              width 0.32s ease;
+  transform-origin: center;
+}
+
+.site-nav-toggle span:nth-child(1) { width: 18px; }
+.site-nav-toggle span:nth-child(2) { width: 12px; }
+.site-nav-toggle span:nth-child(3) { width: 18px; }
+
+.site-nav-toggle[aria-expanded="true"] span:nth-child(1) {
+  width: 18px;
+  transform: translateY(6.5px) rotate(45deg);
+}
+.site-nav-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.site-nav-toggle[aria-expanded="true"] span:nth-child(3) {
+  width: 18px;
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ---- Drawer ---- */
+.site-nav-drawer {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 215px;
+  background: rgba(252, 252, 252, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 12px 40px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px) scale(0.96);
+  transform-origin: top right;
+  transition: opacity 0.24s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* グラデーションのアクセントライン（上端） */
+.site-nav-drawer::before {
+  content: '';
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, #6ddbb0 0%, #a8edce 50%, transparent 100%);
+  opacity: 0.7;
+}
+
+.site-nav-drawer[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+/* CSSカウンターで番号を自動付与 */
+.site-nav-drawer ul {
+  list-style: none;
+  margin: 0;
+  padding: 6px 0 10px;
+  counter-reset: nav-num;
+}
+
+.site-nav-drawer ul li {
+  counter-increment: nav-num;
+  position: relative;
+}
+
+/* ホバー時の左グラデーションライン */
+.site-nav-drawer ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18%;
+  bottom: 18%;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(to bottom, #6ddbb0, #a8edce);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.site-nav-drawer ul li:has(a:hover)::before {
+  opacity: 1;
+}
+
+.site-nav-drawer ul li a {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px 10px 14px;
+  color: #111;
+  text-decoration: none;
+  gap: 10px;
+  transition: background 0.18s ease;
+}
+
+/* 番号（CSSカウンター） */
+.site-nav-drawer ul li a::before {
+  content: counter(nav-num, decimal-leading-zero);
+  font-size: 0.62rem;
+  color: #ccc;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  min-width: 18px;
+  transition: color 0.18s ease;
+}
+
+.site-nav-drawer ul li a:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.site-nav-drawer ul li a:hover::before {
+  color: #999;
+}
+
+.site-nav-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.site-nav-item-title {
+  font-size: 0.88rem;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+  color: #111;
+}
+
+.site-nav-item-domain {
+  font-size: 0.67rem;
+  color: #bbb;
+  letter-spacing: 0.03em;
+}
+
+.site-nav-item-arrow {
+  font-size: 0.72rem;
+  color: #ddd;
+  flex-shrink: 0;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.site-nav-drawer ul li a:hover .site-nav-item-arrow {
+  color: #6ddbb0;
+  transform: translateX(3px);
+}
+
+.site-nav-drawer ul li a:hover .site-nav-item-title {
+  color: #000;
+}
+
+/* ---- Dark mode ---- */
+html[data-theme="dark"] .site-nav-toggle {
+  background: rgba(12, 12, 12, 0.82);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] .site-nav-toggle:hover {
+  background: rgba(22, 22, 22, 0.96);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+html[data-theme="dark"] .site-nav-toggle[aria-expanded="true"] {
+  background: rgba(22, 22, 22, 0.96);
+  border-color: rgba(109, 219, 176, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(109, 219, 176, 0.1);
+}
+
+html[data-theme="dark"] .site-nav-toggle span {
+  background: #c8c8c8;
+}
+
+html[data-theme="dark"] .site-nav-drawer {
+  background: rgba(10, 10, 10, 0.88);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+html[data-theme="dark"] .site-nav-drawer::before {
+  opacity: 0.5;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a {
+  color: #c8c8c8;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme="dark"] .site-nav-item-title {
+  color: #c8c8c8;
+}
+
+html[data-theme="dark"] .site-nav-item-domain {
+  color: #444;
+}
+
+html[data-theme="dark"] .site-nav-item-arrow {
+  color: #3a3a3a;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-arrow {
+  color: #6ddbb0;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a::before {
+  color: #333;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a:hover::before {
+  color: #666;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-title {
+  color: #e0e0e0;
+}
+
+@media screen and (max-width: 680px) {
+  .site-nav {
+    right: 16px !important;
+    top: 16px !important;
+    transition: none !important;
+  }
+
+  /* 全画面ドロワー */
+  .site-nav-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    min-width: unset;
+    border-radius: 0;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translateY(-100%) scale(1);
+    transform-origin: top right;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+  }
+
+  .site-nav-drawer::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .site-nav-drawer[aria-hidden="false"] {
+    transform: translateY(0) scale(1);
+  }
+
+  .site-nav-drawer ul {
+    padding: 0;
+    counter-reset: nav-num;
+  }
+
+  .site-nav-drawer ul li {
+    counter-increment: nav-num;
+  }
+
+  .site-nav-drawer ul li a {
+    padding: 22px 40px;
+    gap: 16px;
+  }
+
+  .site-nav-drawer ul li::before {
+    top: 22%;
+    bottom: 22%;
+    width: 3px;
+  }
+
+  .site-nav-drawer ul li a::before {
+    font-size: 0.7rem;
+    min-width: 24px;
+  }
+
+  .site-nav-item-title {
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+  }
+
+  .site-nav-item-domain {
+    font-size: 0.75rem;
+  }
+
+  .site-nav-item-arrow {
+    font-size: 0.9rem;
+  }
+
+  /* ダークモード全画面 */
+  html[data-theme="dark"] .site-nav-drawer {
+    background: rgba(8, 8, 8, 0.94);
+  }
+}

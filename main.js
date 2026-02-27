@@ -400,11 +400,23 @@ function initSiteNav() {
   let transitionTimer = null;
 
   function findActiveBoxIndex() {
-    let idx = 0;
+    let idx = -1;
     for (let i = 0; i < boxes.length; i++) {
-      if (boxes[i].getBoundingClientRect().top < window.innerHeight) idx = i;
+      const box = boxes[i];
+      // 非表示（タブの非アクティブ面など）を除外
+      if (box.offsetParent === null) continue;
+      // フッターを含むboxは除外
+      if (box.querySelector('.footer')) continue;
+      const rect = box.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.75) idx = i;
     }
-    return idx;
+    // 有効なboxが見つからなければ先頭の可視boxを返す
+    if (idx === -1) {
+      for (let i = 0; i < boxes.length; i++) {
+        if (boxes[i].offsetParent !== null) { idx = i; break; }
+      }
+    }
+    return Math.max(0, idx);
   }
 
   function applyNavPosition() {
@@ -419,7 +431,7 @@ function initSiteNav() {
     const idx  = findActiveBoxIndex();
     const rect = boxes[idx].getBoundingClientRect();
     const minTop = 12;
-    const maxTop = window.innerHeight - 64;
+    const maxTop = window.innerHeight * 0.38; // 画面の38%より下には行かない
     const targetTop = Math.min(maxTop, Math.max(minTop, rect.top - 60));
 
     if (idx !== lastBoxIdx) {

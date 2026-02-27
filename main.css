@@ -1959,7 +1959,7 @@ html[data-theme="dark"] .days-counter {
 
 .site-nav {
   position: fixed;
-  top: 20px;
+  top: 82vh;
   right: max(16px, calc((100vw - 680px) / 2));
   z-index: 1000;
   transition: top 0.38s cubic-bezier(0.4, 0, 0.2, 1);

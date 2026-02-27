@@ -455,9 +455,10 @@ function initSiteNav() {
     applyNavPosition();
   });
 
-  // 初回位置設定（アニメーション不要）
-  nav.style.transition = 'none';
+  // 初回位置設定（ページロード時に下からスライドイン）
+  nav.style.transition = 'top 0.55s cubic-bezier(0.4, 0, 0.2, 1)';
   applyNavPosition();
+  setTimeout(() => { nav.style.transition = 'none'; }, 580);
 }
 
 // Birthday section initialization

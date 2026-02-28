@@ -98,7 +98,7 @@ html[data-theme="dark"] .tool-item-arrow {
 }
 
 html[data-theme="dark"] .tool-item:hover .tool-item-arrow {
-  color: #aaa;
+  color: #6ddbb0;
 }
 
 html[data-theme="dark"] .tool-item-description {
@@ -284,7 +284,7 @@ a::after {
   left: 50%;
   width: 0;
   height: 1px;
-  background: #888;
+  background: linear-gradient(90deg, #275766, #baffc0);
   transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -332,7 +332,7 @@ a:hover::after {
   top: 0;
   width: 3px;
   height: 0;
-  background: #555;
+  background: linear-gradient(180deg, #275766 0%, #baffc0 100%);
   transition: height 0.35s ease;
   border-radius: 0 2px 2px 0;
 }
@@ -363,7 +363,7 @@ a:hover::after {
 }
 
 .tool-item:hover .tool-item-arrow {
-  color: #555;
+  color: #275766;
   transform: translateX(4px);
 }
 
@@ -476,7 +476,11 @@ html[data-theme="dark"] .footer-links a:hover {
 
 .footer-credit-dot {
   display: inline-block;
-  color: inherit;
+  background: linear-gradient(315deg, #275766 15%, #baffc0 33%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
   font-size: 13vw;
 }
 
@@ -995,7 +999,7 @@ html[data-theme="dark"] .error-description {
 .profile-image:hover {
   animation: swing 0.8s ease-in-out both;
   transform-origin: top center;
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.08), 0 0 0 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 0 0 4px rgba(186, 255, 192, 0.35), 0 0 0 7px rgba(39, 87, 102, 0.12);
 }
 
 @keyframes swing {
@@ -1047,9 +1051,11 @@ html[data-theme="dark"] .error-description {
 }
 
 .tab-item.active {
-  background: transparent;
-  border: 1.5px solid #333;
-  color: #333;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, #275766 0%, #baffc0 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #275766;
 }
 
 html[data-theme="dark"] .tab-item {
@@ -1064,9 +1070,11 @@ html[data-theme="dark"] .tab-item:hover {
 }
 
 html[data-theme="dark"] .tab-item.active {
-  background: transparent;
-  border: 1.5px solid #888;
-  color: #888;
+  background:
+    linear-gradient(#080808, #080808) padding-box,
+    linear-gradient(135deg, #275766 0%, #baffc0 100%) border-box;
+  border: 1.5px solid transparent;
+  color: #baffc0;
 }
 
 .tab-content {
@@ -1109,7 +1117,12 @@ html[data-theme="dark"] .tab-item.active {
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.13em;
-  color: #999;
+  background: linear-gradient(135deg, #275766 0%, #baffc0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  opacity: 0.6;
 }
 
 .info-value {
@@ -1158,7 +1171,7 @@ html[data-theme="dark"] .tab-item.active {
   top: 0;
   width: 2px;
   height: 0;
-  background: #555;
+  background: linear-gradient(180deg, #275766, #baffc0);
   transition: height 0.35s ease;
 }
 
@@ -1348,6 +1361,11 @@ html[data-theme="dark"] .page-eyebrow {
 .diary-title-dot,
 .title-dot {
   display: inline-block;
+  background: linear-gradient(315deg, #275766 15%, #baffc0 33%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .diary-entries-box {
@@ -1420,7 +1438,7 @@ html[data-theme="dark"] .diary-month-label {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: #555;
+  background: linear-gradient(to bottom, #275766, #baffc0);
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.22s ease;
@@ -1572,7 +1590,7 @@ html[data-theme="dark"] .diary-text {
   left: 0;
   width: 0;
   height: 1px;
-  background: #888;
+  background: linear-gradient(90deg, #275766, #baffc0);
   transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -1601,7 +1619,7 @@ html[data-theme="dark"] .diary-text {
 }
 
 .link-card:hover .link-card-num {
-  color: #555;
+  color: #3a8895;
 }
 
 .link-card-body {
@@ -1637,7 +1655,7 @@ html[data-theme="dark"] .diary-text {
 }
 
 .link-card:hover .link-card-arrow {
-  color: #555;
+  color: #275766;
   transform: translateX(4px);
 }
 
@@ -1651,7 +1669,7 @@ html[data-theme="dark"] .link-hub .link-card:first-child {
 }
 
 html[data-theme="dark"] .link-card::after {
-  background: #888;
+  background: linear-gradient(90deg, #275766, #baffc0);
 }
 
 html[data-theme="dark"] .link-card-num {
@@ -1667,7 +1685,7 @@ html[data-theme="dark"] .link-card-arrow {
 }
 
 html[data-theme="dark"] .link-card:hover .link-card-arrow {
-  color: #aaa;
+  color: #6ddbb0;
 }
 
 /* Link Hub — Mobile */
@@ -1900,7 +1918,7 @@ html[data-theme="dark"] .days-counter {
   left: 0;
   width: 0;
   height: 2px;
-  background: #555;
+  background: linear-gradient(90deg, #275766 0%, #baffc0 50%, #275766 100%);
   background-size: 200% 100%;
   z-index: 9999;
   pointer-events: none;
@@ -1977,8 +1995,8 @@ html[data-theme="dark"] .days-counter {
 
 .site-nav-toggle[aria-expanded="true"] {
   background: rgba(255, 255, 255, 0.96);
-  border-color: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-color: rgba(109, 219, 176, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(109, 219, 176, 0.15);
 }
 
 .site-nav-toggle span {
@@ -2038,8 +2056,7 @@ html[data-theme="dark"] .days-counter {
   content: '';
   display: block;
   height: 2px;
-  background: rgba(0, 0, 0, 0.07);
-  opacity: 1;
+  background: linear-gradient(90deg, #275766 0%, #baffc0 100%);
 }
 
 .site-nav-drawer[aria-hidden="false"] {
@@ -2070,7 +2087,7 @@ html[data-theme="dark"] .days-counter {
   bottom: 18%;
   width: 2px;
   border-radius: 0 2px 2px 0;
-  background: #555;
+  background: linear-gradient(to bottom, #275766, #baffc0);
   opacity: 0;
   transition: opacity 0.18s ease;
   pointer-events: none;
@@ -2169,7 +2186,7 @@ html[data-theme="dark"] .days-counter {
 }
 
 .site-nav-drawer ul li a:hover .site-nav-item-arrow {
-  color: #888;
+  color: #6ddbb0;
   transform: translateX(3px);
 }
 
@@ -2179,30 +2196,20 @@ html[data-theme="dark"] .days-counter {
 
 /* ---- Current page (aria-current) ---- */
 .site-nav-drawer ul li a[aria-current="page"] {
-  background: rgba(0, 0, 0, 0.04);
   pointer-events: none;
 }
 
-.site-nav-drawer ul li a[aria-current="page"] .site-nav-item-title {
-  color: #333;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-}
-
-.site-nav-drawer ul li a[aria-current="page"] .site-nav-item-domain {
-  color: #888;
-}
-
-.site-nav-drawer ul li a[aria-current="page"] .site-nav-item-arrow {
-  color: #999;
-}
-
+/* 番号だけ #275766→#baffc0 グラデーション */
 .site-nav-drawer ul li a[aria-current="page"]::before {
-  color: #888;
+  background: linear-gradient(135deg, #275766 0%, #baffc0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .site-nav-drawer ul li:has(a[aria-current="page"])::before {
-  background: #555;
+  background: linear-gradient(to bottom, #275766, #baffc0);
   opacity: 1;
 }
 
@@ -2220,8 +2227,8 @@ html[data-theme="dark"] .site-nav-toggle:hover {
 
 html[data-theme="dark"] .site-nav-toggle[aria-expanded="true"] {
   background: rgba(22, 22, 22, 0.96);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-color: rgba(109, 219, 176, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(109, 219, 176, 0.1);
 }
 
 html[data-theme="dark"] .site-nav-toggle span {
@@ -2261,7 +2268,7 @@ html[data-theme="dark"] .site-nav-item-arrow {
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-arrow {
-  color: #aaa;
+  color: #6ddbb0;
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a::before {
@@ -2277,23 +2284,15 @@ html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-title {
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] {
-  background: rgba(39, 87, 102, 0.08);
-}
-
-html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-title {
-  color: #bbb;
-}
-
-html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-domain {
-  color: #4a8a9a;
-}
-
-html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-arrow {
-  color: #4a8a9a;
+  pointer-events: none;
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
-  color: #4a8a9a;
+  background: linear-gradient(135deg, #275766 0%, #baffc0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 @media screen and (max-width: 680px) {

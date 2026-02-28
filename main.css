@@ -2032,7 +2032,7 @@ html[data-theme="dark"] .days-counter {
   position: absolute;
   top: calc(100% + 10px);
   right: 0;
-  min-width: 215px;
+  min-width: 248px;
   background: rgba(252, 252, 252, 0.88);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -2046,8 +2046,9 @@ html[data-theme="dark"] .days-counter {
   pointer-events: none;
   transform: translateY(-10px) scale(0.96);
   transform-origin: top right;
-  transition: opacity 0.24s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.24s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
 }
 
 /* グラデーションのアクセントライン（上端） */
@@ -2127,6 +2128,32 @@ html[data-theme="dark"] .days-counter {
   color: #999;
 }
 
+/* グローバルa::afterのアンダーライン無効化 */
+.site-nav-drawer ul li a::after {
+  display: none !important;
+}
+
+/* ---- アイテムのスタガーアニメーション ---- */
+@keyframes navItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.site-nav-drawer[aria-hidden="false"] ul li {
+  animation: navItemIn 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.site-nav-drawer[aria-hidden="false"] ul li:nth-child(1) { animation-delay: 0.07s; }
+.site-nav-drawer[aria-hidden="false"] ul li:nth-child(2) { animation-delay: 0.11s; }
+.site-nav-drawer[aria-hidden="false"] ul li:nth-child(3) { animation-delay: 0.15s; }
+.site-nav-drawer[aria-hidden="false"] ul li:nth-child(4) { animation-delay: 0.19s; }
+.site-nav-drawer[aria-hidden="false"] ul li:nth-child(5) { animation-delay: 0.23s; }
+
 .site-nav-item-text {
   display: flex;
   flex-direction: column;
@@ -2145,6 +2172,10 @@ html[data-theme="dark"] .days-counter {
   font-size: 0.67rem;
   color: #bbb;
   letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 172px;
 }
 
 .site-nav-item-arrow {
@@ -2161,6 +2192,34 @@ html[data-theme="dark"] .days-counter {
 
 .site-nav-drawer ul li a:hover .site-nav-item-title {
   color: #000;
+}
+
+/* ---- Current page (aria-current) ---- */
+.site-nav-drawer ul li a[aria-current="page"] {
+  background: rgba(109, 219, 176, 0.07);
+  pointer-events: none;
+}
+
+.site-nav-drawer ul li a[aria-current="page"] .site-nav-item-title {
+  color: #2eaa7e;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.site-nav-drawer ul li a[aria-current="page"] .site-nav-item-domain {
+  color: #6ddbb0;
+}
+
+.site-nav-drawer ul li a[aria-current="page"] .site-nav-item-arrow {
+  color: #6ddbb0;
+}
+
+.site-nav-drawer ul li a[aria-current="page"]::before {
+  color: #6ddbb0;
+}
+
+.site-nav-drawer ul li:has(a[aria-current="page"])::before {
+  opacity: 1;
 }
 
 /* ---- Dark mode ---- */
@@ -2231,6 +2290,26 @@ html[data-theme="dark"] .site-nav-drawer ul li a:hover::before {
 
 html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-title {
   color: #e0e0e0;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] {
+  background: rgba(109, 219, 176, 0.06);
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-title {
+  color: #6ddbb0;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-domain {
+  color: #4aaa88;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-arrow {
+  color: #6ddbb0;
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
+  color: #6ddbb0;
 }
 
 @media screen and (max-width: 680px) {
@@ -2305,11 +2384,33 @@ html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-title {
 
   .site-nav-item-domain {
     font-size: 0.75rem;
+    max-width: none;
   }
 
   .site-nav-item-arrow {
     font-size: 0.9rem;
   }
+
+  /* モバイル用スタガーアニメーション（左から） */
+  @keyframes navItemInMobile {
+    from {
+      opacity: 0;
+      transform: translateX(-16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .site-nav-drawer[aria-hidden="false"] ul li {
+    animation: navItemInMobile 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  .site-nav-drawer[aria-hidden="false"] ul li:nth-child(1) { animation-delay: 0.12s; }
+  .site-nav-drawer[aria-hidden="false"] ul li:nth-child(2) { animation-delay: 0.17s; }
+  .site-nav-drawer[aria-hidden="false"] ul li:nth-child(3) { animation-delay: 0.22s; }
+  .site-nav-drawer[aria-hidden="false"] ul li:nth-child(4) { animation-delay: 0.27s; }
+  .site-nav-drawer[aria-hidden="false"] ul li:nth-child(5) { animation-delay: 0.32s; }
 
   /* ダークモード全画面 */
   html[data-theme="dark"] .site-nav-drawer {

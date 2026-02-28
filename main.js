@@ -382,6 +382,21 @@ function initSiteNav() {
     if (e.key === 'Escape') closeNav();
   });
 
+  /* ---------- current page highlight ---------- */
+  try {
+    const currentHost = location.hostname;
+    drawer.querySelectorAll('a[href]').forEach(link => {
+      try {
+        const linkHost = new URL(link.href).hostname;
+        if (linkHost === currentHost) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      } catch (_) {}
+    });
+  } catch (_) {}
+
   drawer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => closeNav());
   });

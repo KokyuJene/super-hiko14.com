@@ -2153,6 +2153,7 @@ html[data-theme="dark"] .days-counter {
 .site-nav-drawer[aria-hidden="false"] ul li:nth-child(3) { animation-delay: 0.15s; }
 .site-nav-drawer[aria-hidden="false"] ul li:nth-child(4) { animation-delay: 0.19s; }
 .site-nav-drawer[aria-hidden="false"] ul li:nth-child(5) { animation-delay: 0.23s; }
+.site-nav-drawer[aria-hidden="false"] ul li:nth-child(6) { animation-delay: 0.27s; }
 
 .site-nav-item-text {
   display: flex;
@@ -2196,29 +2197,34 @@ html[data-theme="dark"] .days-counter {
 
 /* ---- Current page (aria-current) ---- */
 .site-nav-drawer ul li a[aria-current="page"] {
-  background: rgba(109, 219, 176, 0.07);
+  background: rgba(39, 87, 102, 0.04);
   pointer-events: none;
 }
 
 .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-title {
-  color: #2eaa7e;
-  font-weight: 600;
+  background: linear-gradient(115deg, #275766 0%, #baffc0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 500;
   letter-spacing: 0.04em;
 }
 
 .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-domain {
-  color: #6ddbb0;
+  color: #6fa0ae;
 }
 
 .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-arrow {
-  color: #6ddbb0;
+  color: #8ab8c4;
 }
 
 .site-nav-drawer ul li a[aria-current="page"]::before {
-  color: #6ddbb0;
+  color: #6fa0ae;
 }
 
 .site-nav-drawer ul li:has(a[aria-current="page"])::before {
+  background: linear-gradient(to bottom, #275766, #baffc0);
   opacity: 1;
 }
 
@@ -2293,23 +2299,27 @@ html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-title {
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] {
-  background: rgba(109, 219, 176, 0.06);
+  background: rgba(39, 87, 102, 0.08);
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-title {
-  color: #6ddbb0;
+  background: linear-gradient(115deg, #3a8096 0%, #baffc0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-domain {
-  color: #4aaa88;
+  color: #4a8a9a;
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-arrow {
-  color: #6ddbb0;
+  color: #4a8a9a;
 }
 
 html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
-  color: #6ddbb0;
+  color: #4a8a9a;
 }
 
 @media screen and (max-width: 680px) {
@@ -2411,6 +2421,7 @@ html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
   .site-nav-drawer[aria-hidden="false"] ul li:nth-child(3) { animation-delay: 0.22s; }
   .site-nav-drawer[aria-hidden="false"] ul li:nth-child(4) { animation-delay: 0.27s; }
   .site-nav-drawer[aria-hidden="false"] ul li:nth-child(5) { animation-delay: 0.32s; }
+  .site-nav-drawer[aria-hidden="false"] ul li:nth-child(6) { animation-delay: 0.37s; }
 
   /* ダークモード全画面 */
   html[data-theme="dark"] .site-nav-drawer {

@@ -106,12 +106,11 @@ html[data-theme="dark"] .tool-item-description {
 }
 
 html[data-theme="dark"] .nav-button {
-  background-color: #1a1a1a;
-  color: #d0d0d0;
+  color: #444;
 }
 
 html[data-theme="dark"] .nav-button:hover {
-  background-color: #252525;
+  color: #777;
 }
 
 html[data-theme="dark"] .footer {
@@ -551,23 +550,30 @@ html[data-theme="dark"] .scroll-icon-dark {
 
 .nav-buttons {
   display: flex;
-  gap: 15px;
+  gap: 24px;
   justify-content: center;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .nav-button {
-  background-color: #f0f0f0;
-  border-radius: 20px;
-  padding: 12px 30px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  padding: 4px 8px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: none;
   line-height: 1;
+}
+
+.nav-button .nav-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
 }
 
 .nav-button::after {
@@ -575,8 +581,9 @@ html[data-theme="dark"] .scroll-icon-dark {
 }
 
 .nav-button:hover {
-  background-color: #e0e0e0;
-  transform: translateY(-2px);
+  color: #888;
+  background: none;
+  transform: none;
 }
 
 .scroll-indicator {
@@ -855,16 +862,11 @@ html[data-theme="dark"] .scroll-icon-dark {
   }
 
   .nav-buttons {
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+    gap: 16px;
   }
 
   .nav-button {
-    width: 80%;
-    max-width: 300px;
-    box-sizing: border-box;
-    text-align: center;
+    font-size: 0.7rem;
   }
 }
 

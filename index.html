@@ -97,7 +97,7 @@
           </span>
           <span class="profile-meta-badge">
             <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            Japan
+            Japan/ゆきぐに
           </span>
           <span class="profile-meta-badge">
             <svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 14H7v-2h10v2zm0-4H7v-2h10v2zm0-4H7V6h10v2z"/></svg>
@@ -151,6 +151,88 @@
           </div>
           <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </a>
+        <div class="social-card social-card--github">
+          <a href="https://github.com/KokyuJene" class="social-card-top" target="_blank" rel="noopener">
+            <div class="social-card-icon-wrap">
+              <img src="sozai/images/GitHub_Invertocat_White.svg" alt="" class="social-icon social-icon--invert-light">
+            </div>
+            <div class="social-card-info">
+              <span class="social-card-name">Github</span>
+              <span class="social-card-handle">KokyuJene</span>
+            </div>
+            <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+          <div class="github-calendar-wrap">
+            <div class="calendar"></div>
+          </div>
+        </div>
+        <script>
+          (function() {
+            var calEl = document.querySelector('.calendar');
+            if (!calEl) return;
+            var CL = ['#ebedf0','#9be9a8','#40c463','#30a14e','#216e39'];
+            var CD = ['#161b22','#0e4429','#006d32','#26a641','#39d353'];
+            var MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var NS = 'http://www.w3.org/2000/svg';
+            function se(tag, attrs) {
+              var e = document.createElementNS(NS, tag);
+              Object.keys(attrs).forEach(function(k) { e.setAttribute(k, attrs[k]); });
+              return e;
+            }
+            function build(days, dark) {
+              var S = 4, G = 2, T = S + G, LH = 12;
+              var c = dark ? CD : CL;
+              var lc = dark ? '#8b949e' : '#656d76';
+              var weeks = [], wk = null;
+              days.forEach(function(d) {
+                var dow = new Date(d.date + 'T00:00:00').getDay();
+                if (!wk || dow === 0) { wk = new Array(7).fill(null); weeks.push(wk); }
+                wk[dow] = d;
+              });
+              if (!weeks.length) return se('svg', {});
+              var W = weeks.length * T - G, H = LH + 7 * T - G;
+              var svg = se('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', style: 'display:block' });
+              var lm = -1;
+              weeks.forEach(function(week, wi) {
+                var first = null;
+                for (var i = 0; i < 7; i++) { if (week[i]) { first = week[i]; break; } }
+                if (first) {
+                  var m = new Date(first.date + 'T00:00:00').getMonth();
+                  if (m !== lm) {
+                    lm = m;
+                    var t = se('text', { x: wi * T, y: LH - 3, 'font-size': '3.5', fill: lc, 'font-family': 'inherit' });
+                    t.textContent = MN[m];
+                    svg.appendChild(t);
+                  }
+                }
+                for (var dow = 0; dow < 7; dow++) {
+                  var d = week[dow];
+                  svg.appendChild(se('rect', {
+                    x: wi * T, y: LH + dow * T,
+                    width: S, height: S, rx: '1.5', ry: '1.5',
+                    fill: c[d ? Math.min(d.level || 0, 4) : 0]
+                  }));
+                }
+              });
+              return svg;
+            }
+            function run() {
+              var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+              fetch('https://github-contributions-api.jogruber.de/v4/KokyuJene')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                  var all = data.contributions || [];
+                  var days = all.slice(-91);
+                  calEl.innerHTML = '';
+                  calEl.appendChild(build(days, dark));
+                })
+                .catch(function() {});
+            }
+            document.readyState === 'loading'
+              ? document.addEventListener('DOMContentLoaded', run)
+              : run();
+          })();
+        </script>
       </nav>
     </div>
     <div class="box">
@@ -191,5 +273,9 @@
     </div>
 
   </main>
+<script>
+    // 実行
+    GitHubCalendar(".calendar", "KokyuJene", { responsive: true, tooltips: true });
+</script>
 </body>
 </html>

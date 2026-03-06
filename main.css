@@ -2104,6 +2104,46 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
   color: #6ddbb0;
 }
 
+/* GitHub calendar card */
+.social-card--github {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+}
+
+.social-card--github:hover {
+  gap: 0;
+}
+
+.social-card-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-card-top::after {
+  display: none;
+}
+
+.social-card--github .social-card-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.github-calendar-wrap {
+  padding: 0 18px 18px;
+  box-sizing: border-box;
+}
+
+.calendar {
+  line-height: 0;
+}
+
 /* Profile Hero — Mobile */
 @media screen and (max-width: 768px) {
   .profile-social-list {
@@ -2118,6 +2158,19 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
     width: 100%;
     box-sizing: border-box;
     border-radius: 16px;
+  }
+
+  .social-card--github {
+    padding: 0;
+  }
+
+  .social-card-top {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .github-calendar-wrap {
+    padding: 0 14px 14px;
   }
 
   .social-card-info {

@@ -218,11 +218,19 @@
             }
             function run() {
               var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-              fetch('https://github-contributions-api.jogruber.de/v4/KokyuJene')
+              fetch('https://github-contributions-api.jogruber.de/v4/KokyuJene?y=last')
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                   var all = data.contributions || [];
-                  var days = all.slice(-91);
+                  // 今月（1日以降）より前のデータを抽出し、直近の「完結した3ヶ月間」を取得
+                  var today = new Date();
+                  var firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                  var threeMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 3, 1);
+                  
+                  var days = all.filter(function(d) {
+                    var date = new Date(d.date + 'T00:00:00');
+                    return date >= threeMonthsAgo && date < firstDayOfThisMonth;
+                  });
                   calEl.innerHTML = '';
                   calEl.appendChild(build(days, dark));
                 })
@@ -274,8 +282,24 @@
 
   </main>
 <script>
-    // 実行
     GitHubCalendar(".calendar", "KokyuJene", { responsive: true, tooltips: true });
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Super Hiko14",
+  "url": "https://super-hiko14.com",
+  "mainEntityOfPage": "https://super-hiko14.com",
+  "sameAs": [
+    "https://www.youtube.com/@super-hiko14",
+    "https://ofuse.me/e/163505",
+    "https://ofuse.me/superhiko14",
+    "https://mobile.twstalker.com/super_hiko14",
+    "https://twstalker.com/super_hiko14",
+    "https://super-hiko14.me"
+  ]
+}
 </script>
 </body>
 </html>

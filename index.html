@@ -97,8 +97,11 @@
 
   <main class="container">
 
-    <div class="box">
-      <div class="profile-hero">
+    <div class="box hiko-box">
+      <div class="hiko-hero">
+        <img src="sozai/images/polygon_hiko.png" alt="" class="kj-hero-bg" aria-hidden="true">
+        <div class="kj-hero-overlay"></div>
+        <div class="profile-hero">
         <div class="profile-hero-avatar-wrap">
           <img src="https://about.super-hiko14.com/super-hiko14/My_icon.png" alt="Super Hiko14" class="profile-hero-avatar">
         </div>
@@ -125,6 +128,7 @@
             INFP
           </span>
         </div>
+        </div>
       </div>
 
       <nav class="profile-social-list" aria-label="ソーシャルリンク">
@@ -135,6 +139,10 @@
           <div class="social-card-info">
             <span class="social-card-name">YouTube</span>
             <span class="social-card-handle">@super-hiko14</span>
+            <span class="yt-stats" id="yt-stats-hiko" style="display:none">
+              <svg class="yt-stats-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <span id="yt-subs-hiko">-</span>Subscribers
+            </span>
           </div>
           <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </a>
@@ -261,7 +269,7 @@
                   var m = new Date(first.date + 'T00:00:00').getMonth();
                   if (m !== lm) {
                     lm = m;
-                    var t = se('text', { x: wi * T, y: LH - 2, 'font-size': '5', fill: lc, 'font-family': 'inherit' });
+                    var t = se('text', { x: wi * T, y: LH - 2, 'font-size': '3', fill: lc, 'font-family': 'inherit' });
                     t.textContent = MN[m];
                     svg.appendChild(t);
                   }
@@ -312,7 +320,7 @@
           <div class="kj-hero-content">
             <img src="sozai/images/kokyujene.png" alt="高級ジェネ" class="kj-logo">
             <h2 class="kj-title">高級ジェネ<span class="title-dot">.</span></h2>
-            <p class="kj-desc">Minecraftサバイバルサーバー</p>
+            <p class="kj-desc">Minecraft - ジェネレーター</p>
           </div>
         </div>
         <nav class="profile-social-list kj-link-list" aria-label="高級ジェネリンク">
@@ -326,13 +334,47 @@
             </div>
             <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </a>
+        <a href="https://youtube.com/@KokyuJene" class="social-card" target="_blank" rel="noopener">
+          <div class="social-card-icon-wrap">
+            <img src="sozai/images/yt_icon_white_digital.png" alt="" class="social-icon social-icon--invert-light">
+          </div>
+          <div class="social-card-info">
+            <span class="social-card-name">YouTube</span>
+            <span class="social-card-handle">@KokyuJene</span>
+            <span class="yt-stats" id="yt-stats-kj" style="display:none">
+              <svg class="yt-stats-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <span id="yt-subs-kj">-</span>Subscribers
+            </span>
+          </div>
+          <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
           <a href="https://discord.super-hiko14.com" class="social-card" target="_blank" rel="noopener">
             <div class="social-card-icon-wrap">
               <img src="sozai/images/Discord-Symbol-White.svg" alt="" class="social-icon social-icon--invert-light">
             </div>
             <div class="social-card-info">
               <span class="social-card-name">Discord</span>
-              <span class="social-card-handle">高級ジェネ コミュニティ</span>
+              <span class="social-card-handle">高級ジェネ</span>
+              <span class="discord-stats" id="discord-stats" aria-label="Discordサーバー人数" style="display:none">
+                <span class="discord-stat discord-stat--online">
+                  <span class="discord-stat-dot"></span>
+                  <span id="discord-online">-</span>Online
+                </span>
+                <span class="discord-stat-sep">·</span>
+                <span class="discord-stat discord-stat--total">
+                  <span id="discord-total">-</span>Members
+                </span>
+              </span>
+            </div>
+            <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+          <a href="https://line.me/ti/g2/NUmh2HQ_JhLH9x7VNaR1XAYqIePaEeziz5HClw" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon-wrap">
+              <img src="sozai/images/LINE_APP_iOS.png" alt="" class="social-icon">
+            </div>
+            <div class="social-card-info">
+              <span class="social-card-name">LINE - OpenChat(オープンチャット)</span>
+              <span class="social-card-handle">高級ジェネ</span>
             </div>
             <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </a>
@@ -379,6 +421,69 @@
   </main>
 <script>
     GitHubCalendar(".calendar", "KokyuJene", { responsive: true, tooltips: true });
+</script>
+<script>
+  (function() {
+    fetch('https://discord.com/api/v9/invites/ukFH4NtDG6?with_counts=true')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var statsEl = document.getElementById('discord-stats');
+        var onlineEl = document.getElementById('discord-online');
+        var totalEl = document.getElementById('discord-total');
+        if (!statsEl || !onlineEl || !totalEl) return;
+        var online = data.approximate_presence_count;
+        var total  = data.approximate_member_count;
+        if (online !== undefined) onlineEl.textContent = online;
+        if (total  !== undefined) totalEl.textContent  = total.toLocaleString('ja-JP');
+        if (online !== undefined || total !== undefined) {
+          statsEl.style.display = '';
+        }
+      })
+      .catch(function() {});
+  })();
+</script>
+<script>
+  (function() {
+    var YT_API_KEY = 'AIzaSyDJo93tXJfcFgn6Qe4NvJkWk35np50Xy7o';
+    if (!YT_API_KEY) return;
+
+    function fmtSubs(n) {
+      n = parseInt(n, 10);
+      if (isNaN(n)) return null;
+      if (n >= 10000) return (n / 10000).toFixed(1).replace(/\.0$/, '') + '万';
+      if (n >= 1000)  return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+      return n.toString();
+    }
+
+    function loadSubs(handle, statsId, subsId) {
+      var statsEl = document.getElementById(statsId);
+      var subsEl  = document.getElementById(subsId);
+      if (!statsEl || !subsEl) return;
+      var url = 'https://www.googleapis.com/youtube/v3/channels'
+        + '?part=statistics&forHandle=' + encodeURIComponent(handle)
+        + '&key=' + YT_API_KEY;
+      fetch(url)
+        .then(function(r) {
+          /* クォータ超過・認証エラーは非表示のまま終了 */
+          if (r.status === 403 || r.status === 400 || r.status === 401) return null;
+          return r.json();
+        })
+        .then(function(data) {
+          if (!data) return;
+          var item = data.items && data.items[0];
+          if (!item) return;
+          var count = item.statistics && item.statistics.subscriberCount;
+          var fmt = fmtSubs(count);
+          if (!fmt) return;
+          subsEl.textContent = fmt;
+          statsEl.style.display = '';
+        })
+        .catch(function() {});
+    }
+
+    loadSubs('@super-hiko14', 'yt-stats-hiko', 'yt-subs-hiko');
+    loadSubs('@KokyuJene',    'yt-stats-kj',   'yt-subs-kj');
+  })();
 </script>
 </body>
 </html>

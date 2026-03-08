@@ -1857,21 +1857,8 @@ html[data-theme="dark"] .link-card:hover .link-card-arrow {
 }
 
 .profile-hero-bio a {
-  color: #3a8895;
-  font-weight: 600;
-  border-bottom: 1px dashed rgba(58, 136, 149, 0.4);
-  transition: all 0.2s ease;
-}
-
-.profile-hero-bio a:hover {
-  color: #275766;
-  border-bottom-style: solid;
-  border-bottom-color: #275766;
-  background: rgba(58, 136, 149, 0.05);
-}
-
-.profile-hero-bio a::after {
-  display: none;
+  color: inherit;
+  font-weight: inherit;
 }
 
 .profile-hero-meta {
@@ -2014,11 +2001,72 @@ html[data-theme="dark"] .social-card:hover {
 }
 
 .social-card-handle {
-  font-family: 'Jost', monospace;
+  font-family: 'Jost', 'zenkaku' monospace;
   font-size: 0.82rem; /* 少し大きく */
   color: #adb5bd;
   letter-spacing: 0.02em;
 }
+
+/* Discord stats badge */
+.discord-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+  font-size: 0.72rem;
+  color: #adb5bd;
+  letter-spacing: 0.01em;
+}
+
+.discord-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.discord-stat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #23a55a;
+  box-shadow: 0 0 5px rgba(35, 165, 90, 0.65);
+  flex-shrink: 0;
+}
+
+.discord-stat-sep {
+  color: #ced4da;
+  font-size: 0.8rem;
+}
+
+html[data-theme="dark"] .discord-stats {
+  color: #6c757d;
+}
+
+html[data-theme="dark"] .discord-stat-sep {
+  color: #343a40;
+}
+/* YouTube subscriber stats badge */
+.yt-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 5px;
+  font-size: 0.72rem;
+  color: #adb5bd;
+  letter-spacing: 0.01em;
+}
+
+.yt-stats-icon {
+  width: 11px;
+  height: 11px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+html[data-theme="dark"] .yt-stats {
+  color: #6c757d;
+}
+
 
 .social-card-arrow {
   display: flex;
@@ -2051,7 +2099,8 @@ html[data-theme="dark"] .profile-hero-bio {
 }
 
 html[data-theme="dark"] .profile-hero-bio a {
-  color: #6ddbb0;
+  color: inherit;
+  font-weight: inherit;
 }
 
 html[data-theme="dark"] .profile-meta-badge {
@@ -2102,6 +2151,48 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
 }
 
 /* ===== 高級ジェネ セクション ===== */
+.hiko-box {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hiko-hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 36px;
+}
+
+.hiko-hero .profile-hero {
+  position: relative;
+  z-index: 1;
+}
+
+.hiko-hero .profile-hero-name {
+  color: #fff;
+}
+
+.hiko-hero .profile-hero-bio {
+  color: rgba(255,255,255,0.8);
+}
+
+.hiko-hero .profile-hero-avatar-wrap {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.hiko-hero .profile-meta-badge {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+}
+
+.hiko-box .profile-social-list {
+  padding: 16px;
+  margin: 0 auto !important;
+}
+
 .kj-box {
   padding: 0;
   overflow: hidden;
@@ -2114,10 +2205,11 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
 
 .kj-hero {
   position: relative;
-  height: 180px;
   overflow: hidden;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 36px;
 }
 
 .kj-hero-bg {
@@ -2139,18 +2231,19 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
   position: relative;
   z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
+  gap: 14px;
   color: #fff;
+  text-align: center;
 }
 
 .kj-logo {
-  width: 40px;
-  height: 40px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  object-fit: contain;
-  background: rgba(255,255,255,0.1);
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.4);
   flex-shrink: 0;
 }
 
@@ -2159,18 +2252,20 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
 }
 
 .kj-title {
-  font-size: 1.4rem;
+  font-family: 'jost', 'zenkaku', sans-serif;
+  font-size: 2rem;
   font-weight: 700;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.1;
   color: #fff;
   letter-spacing: -0.01em;
 }
 
 .kj-desc {
-  font-size: 0.8rem;
+  font-family: 'jost', 'zenkaku', sans-serif;
+  font-size: 0.92rem;
   opacity: 0.8;
-  margin: 2px 0 0;
+  margin: 0;
   color: #fff;
 }
 

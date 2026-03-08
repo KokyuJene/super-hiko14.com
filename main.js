@@ -209,6 +209,9 @@ function initTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', newTheme);
+      if (window._refreshGitHubCalendar) {
+        window._refreshGitHubCalendar();
+      }
       try {
         localStorage.setItem('theme', newTheme);
       } catch (_) {

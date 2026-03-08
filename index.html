@@ -87,7 +87,7 @@
         </div>
         <h1 class="profile-hero-name">Super Hiko14<span class="title-dot">.</span></h1>
         <p class="profile-hero-bio">
-          Minecraft コマンド / アドオン開発<br>
+          Minecraft コマンド<br>
           <a href="https://kokyujene.super-hiko14.com">高級ジェネ™</a> サーバーオーナー
         </p>
         <div class="profile-hero-meta">
@@ -164,14 +164,27 @@
           </a>
           <div class="github-calendar-wrap">
             <div class="calendar"></div>
+            <button class="calendar-info-toggle" aria-label="色の説明を表示">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="19" cy="12" r="1"></circle>
+                <circle cx="5" cy="12" r="1"></circle>
+              </svg>
+            </button>
+            <div class="calendar-legend-popover" aria-hidden="true">
+              <span class="legend-label">Less</span>
+              <div class="calendar-legend"></div>
+              <span class="legend-label">More</span>
+            </div>
           </div>
         </div>
         <script>
           (function() {
             var calEl = document.querySelector('.calendar');
+            var legendEl = document.querySelector('.calendar-legend');
             if (!calEl) return;
             var CL = ['#ebedf0','#9be9a8','#40c463','#30a14e','#216e39'];
-            var CD = ['#161b22','#0e4429','#006d32','#26a641','#39d353'];
+            var CD = ['#161b22','#39d353','#26a641','#006d32','#0e4429'];
             var MN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
             var NS = 'http://www.w3.org/2000/svg';
             function se(tag, attrs) {
@@ -179,8 +192,39 @@
               Object.keys(attrs).forEach(function(k) { e.setAttribute(k, attrs[k]); });
               return e;
             }
+            function buildLegend(dark) {
+              if (!legendEl) return;
+              legendEl.innerHTML = '';
+              var c = dark ? CD : CL;
+              var S = 10, G = 3;
+              var svg = se('svg', { width: (S + G) * 5 - G, height: S, style: 'display:block' });
+              for (var i = 0; i < 5; i++) {
+                svg.appendChild(se('rect', {
+                  x: i * (S + G), y: 0,
+                  width: S, height: S, rx: '2', ry: '2',
+                  fill: c[i]
+                }));
+              }
+              legendEl.appendChild(svg);
+            }
+
+            // 三点リーダーボタンのクリックイベント
+            var toggleBtn = document.querySelector('.calendar-info-toggle');
+            var popover = document.querySelector('.calendar-legend-popover');
+            if (toggleBtn && popover) {
+              toggleBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var isVisible = popover.classList.toggle('is-visible');
+                popover.setAttribute('aria-hidden', !isVisible);
+              });
+              document.addEventListener('click', function() {
+                popover.classList.remove('is-visible');
+                popover.setAttribute('aria-hidden', 'true');
+              });
+            }
+
             function build(days, dark) {
-              var S = 4, G = 2, T = S + G, LH = 12;
+              var S = 4, G = 2, T = S + G, LH = 10;
               var c = dark ? CD : CL;
               var lc = dark ? '#8b949e' : '#656d76';
               var weeks = [], wk = null;
@@ -191,7 +235,7 @@
               });
               if (!weeks.length) return se('svg', {});
               var W = weeks.length * T - G, H = LH + 7 * T - G;
-              var svg = se('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', style: 'display:block' });
+              var svg = se('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', style: 'max-width:380px;display:block;margin:0 auto' });
               var lm = -1;
               weeks.forEach(function(week, wi) {
                 var first = null;
@@ -200,7 +244,7 @@
                   var m = new Date(first.date + 'T00:00:00').getMonth();
                   if (m !== lm) {
                     lm = m;
-                    var t = se('text', { x: wi * T, y: LH - 3, 'font-size': '3.5', fill: lc, 'font-family': 'inherit' });
+                    var t = se('text', { x: wi * T, y: LH - 2, 'font-size': '5', fill: lc, 'font-family': 'inherit' });
                     t.textContent = MN[m];
                     svg.appendChild(t);
                   }
@@ -216,13 +260,12 @@
               });
               return svg;
             }
-            function run() {
+            window._refreshGitHubCalendar = function() {
               var dark = document.documentElement.getAttribute('data-theme') === 'dark';
               fetch('https://github-contributions-api.jogruber.de/v4/KokyuJene?y=last')
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                   var all = data.contributions || [];
-                  // 今月（1日以降）より前のデータを抽出し、直近の「完結した3ヶ月間」を取得
                   var today = new Date();
                   var firstDayOfThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
                   var threeMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 3, 1);
@@ -233,15 +276,51 @@
                   });
                   calEl.innerHTML = '';
                   calEl.appendChild(build(days, dark));
+                  buildLegend(dark);
                 })
                 .catch(function() {});
             }
             document.readyState === 'loading'
-              ? document.addEventListener('DOMContentLoaded', run)
-              : run();
+              ? document.addEventListener('DOMContentLoaded', window._refreshGitHubCalendar)
+              : window._refreshGitHubCalendar();
           })();
         </script>
       </nav>
+    </div>
+    <div class="box kj-box">
+      <div class="kj-section">
+        <div class="kj-hero">
+          <img src="sozai/images/polygon_kokyujene.png" alt="" class="kj-hero-bg" aria-hidden="true">
+          <div class="kj-hero-overlay"></div>
+          <div class="kj-hero-content">
+            <img src="sozai/images/kokyujene.png" alt="高級ジェネ" class="kj-logo">
+            <h2 class="kj-title">高級ジェネ<span class="title-dot">.</span></h2>
+            <p class="kj-desc">Minecraftサバイバルサーバー</p>
+          </div>
+        </div>
+        <nav class="profile-social-list kj-link-list" aria-label="高級ジェネリンク">
+          <a href="https://kokyujene.super-hiko14.com" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon-wrap">
+              <img src="sozai/images/kokyujene.png" alt="" class="social-icon icon-maru">
+            </div>
+            <div class="social-card-info">
+              <span class="social-card-name">高級ジェネ 公式サイト</span>
+              <span class="social-card-handle">kokyujene.super-hiko14.com</span>
+            </div>
+            <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+          <a href="https://discord.super-hiko14.com" class="social-card" target="_blank" rel="noopener">
+            <div class="social-card-icon-wrap">
+              <img src="sozai/images/Discord-Symbol-White.svg" alt="" class="social-icon social-icon--invert-light">
+            </div>
+            <div class="social-card-info">
+              <span class="social-card-name">Discord</span>
+              <span class="social-card-handle">高級ジェネ コミュニティ</span>
+            </div>
+            <span class="social-card-arrow"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+        </nav>
+      </div>
     </div>
     <div class="box">
       <div class="footer">

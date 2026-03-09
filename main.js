@@ -360,15 +360,65 @@ function initSiteNav() {
   const drawer = document.querySelector('.site-nav-drawer');
   if (!toggle || !drawer || !nav) return;
 
+  /* ---------- inject backdrop ---------- */
+  const backdrop = document.createElement('div');
+  backdrop.className = 'site-nav-backdrop';
+  backdrop.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(backdrop);
+
+  /* ---------- inject drawer header ---------- */
+  const drawerHeader = document.createElement('div');
+  drawerHeader.className = 'site-nav-drawer-header';
+  drawerHeader.innerHTML =
+    '<span class="site-nav-drawer-brand">' +
+      '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+        '<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>' +
+      '</svg>' +
+      'Navigation' +
+    '</span>';
+  drawer.insertBefore(drawerHeader, drawer.firstChild);
+
+  /* ---------- inject icons per nav item ---------- */
+  const ICON_MAP = {
+    'super-hiko14.com':        '<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>',
+    'about.super-hiko14.com':  '<path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"/>',
+    'kokyujene.super-hiko14.com': '<path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>',
+    'tools.super-hiko14.com':  '<path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>',
+    'super-hiko14.me':         '<path d="M18 2h-2V1c0-.6-.4-1-1-1s-1 .4-1 1v1H9V1c0-.6-.4-1-1-1S7 .4 7 1v1H5C3.9 2 3 2.9 3 4v16c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H5V8h13v12zM7 10h5v5H7z"/>',
+    'legal.super-hiko14.com':  '<path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/>',
+  };
+  drawer.querySelectorAll('a[href]').forEach(link => {
+    try {
+      const host = new URL(link.href).hostname;
+      const path = ICON_MAP[host];
+      if (!path) return;
+      const iconEl = document.createElement('span');
+      iconEl.className = 'site-nav-item-icon';
+      iconEl.setAttribute('aria-hidden', 'true');
+      iconEl.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">' + path + '</svg>';
+      link.insertBefore(iconEl, link.firstChild);
+    } catch (_) {}
+  });
+
   /* ---------- open / close ---------- */
   function openNav() {
     toggle.setAttribute('aria-expanded', 'true');
     drawer.setAttribute('aria-hidden', 'false');
+    backdrop.classList.add('is-visible');
+    if (window.innerWidth <= 680) document.body.classList.add('site-nav-open');
+    // フォーカスを最初のリンクへ（少し遅延）
+    setTimeout(() => {
+      const first = drawer.querySelector('a[href]');
+      if (first) first.focus({ preventScroll: true });
+    }, 120);
   }
 
   function closeNav() {
     toggle.setAttribute('aria-expanded', 'false');
     drawer.setAttribute('aria-hidden', 'true');
+    backdrop.classList.remove('is-visible');
+    document.body.classList.remove('site-nav-open');
   }
 
   toggle.addEventListener('click', (e) => {
@@ -377,13 +427,49 @@ function initSiteNav() {
     isOpen ? closeNav() : openNav();
   });
 
+  // バックドロップクリックで閉じる
+  backdrop.addEventListener('click', () => {
+    closeNav();
+    toggle.focus();
+  });
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.site-nav')) closeNav();
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeNav();
+    if (e.key === 'Escape') {
+      closeNav();
+      toggle.focus();
+    }
   });
+
+  /* ---------- フォーカストラップ ---------- */
+  drawer.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    if (drawer.getAttribute('aria-hidden') === 'true') return;
+    const focusables = Array.from(
+      drawer.querySelectorAll('a[href], [tabindex]:not([tabindex="-1"])')
+    ).filter(el => el.offsetParent !== null);
+    if (!focusables.length) return;
+    const first = focusables[0];
+    const last  = focusables[focusables.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ---------- スワイプで閉じる（モバイル） ---------- */
+  let touchStartY = 0;
+  drawer.addEventListener('touchstart', (e) => {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  drawer.addEventListener('touchend', (e) => {
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (dy < -60) closeNav(); // 上スワイプで閉じる
+  }, { passive: true });
 
   /* ---------- current page highlight ---------- */
   try {

@@ -34,14 +34,31 @@
       if (link.hasAttribute('download')) return;
       var href = link.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+      
+      // サブドメイン間移動対応: クッキーにフラグを立てる（ドメイン全体で共有）
+      document.cookie = SK + "=1; path=/; domain=super-hiko14.com; max-age=10";
+      
       try { sessionStorage.setItem(SK, '1'); } catch(_) {}
     });
 
     // ページB: 到着時にフラグを確認してアニメーション
-    var pending;
-    try { pending = sessionStorage.getItem(SK); } catch(_) {}
+    var pending = false;
+    try {
+      if (sessionStorage.getItem(SK) === '1') {
+        pending = true;
+        sessionStorage.removeItem(SK);
+      } else {
+        // クッキーを確認
+        var match = document.cookie.match(new RegExp('(^| )' + SK + '=([^;]+)'));
+        if (match && match[2] === '1') {
+          pending = true;
+          // 使用後は削除（期限切れにする）
+          document.cookie = SK + "=; path=/; domain=super-hiko14.com; max-age=0";
+        }
+      }
+    } catch(_) {}
+    
     if (pending) {
-      try { sessionStorage.removeItem(SK); } catch(_) {}
       var bar = createBar();
       // 山形: 長い右上がりから 100% までスゾッと引き、その後フェード
       bar.classList.add('nav-progress-arrive-start');

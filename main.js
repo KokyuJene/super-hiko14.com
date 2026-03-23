@@ -92,12 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Birthday section initialization
   initBirthday();
 
-  // Parallax background effect
-  initParallax();
-
-  // Hover glow effect for social cards
-  initHoverGlow();
-
   const observerOptions = {
     root: null,
     rootMargin: "0px 0px -15% 0px",
@@ -646,92 +640,4 @@ function initBirthday() {
 
   // Update at midnight
   setTimeout(updateBirthdayInfo, (24 - new Date().getHours()) * 60 * 60 * 1000);
-}
-
-// Parallax background effect for hero sections
-function initParallax() {
-  const hikoHero = document.querySelector('.hiko-hero');
-  const kjHero = document.querySelector('.kj-hero');
-  const heroes = [hikoHero, kjHero].filter(Boolean);
-
-  if (!heroes.length) return;
-
-  const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isTouchLike = window.matchMedia && window.matchMedia('(hover: none), (pointer: coarse)').matches;
-
-  heroes.forEach((hero) => {
-    const bgImg = hero.querySelector('img[class*="hero-bg"]');
-    if (!bgImg) return;
-    bgImg.style.willChange = 'transform';
-    bgImg.style.transformOrigin = 'center center';
-  });
-
-  if (prefersReducedMotion || isTouchLike) {
-    heroes.forEach((hero) => {
-      const bgImg = hero.querySelector('img[class*="hero-bg"]');
-      if (!bgImg) return;
-      bgImg.style.transform = 'translate3d(0, 0, 0) scale(1.06)';
-    });
-    return;
-  }
-
-  let rafId = null;
-  const maxShift = 22;
-  const baseScale = 1.12;
-
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
-  }
-
-  function applyParallax() {
-    heroes.forEach((hero) => {
-      const bgImg = hero.querySelector('img[class*="hero-bg"]');
-      if (!bgImg) return;
-
-      const rect = hero.getBoundingClientRect();
-      const viewportCenter = window.innerHeight * 0.5;
-      const heroCenter = rect.top + rect.height * 0.5;
-      const distanceFromCenter = heroCenter - viewportCenter;
-      const wantedShift = distanceFromCenter * -0.08;
-      const safeShift = Math.max(0, (rect.height * (baseScale - 1)) / 2 - 2);
-      const shiftLimit = Math.min(maxShift, safeShift);
-      const shift = clamp(wantedShift, -shiftLimit, shiftLimit);
-
-      bgImg.style.transform = `translate3d(0, ${shift}px, 0) scale(${baseScale})`;
-    });
-  }
-
-  function onScrollOrResize() {
-    if (rafId) return;
-    rafId = requestAnimationFrame(() => {
-      applyParallax();
-      rafId = null;
-    });
-  }
-
-  applyParallax();
-  window.addEventListener('scroll', onScrollOrResize, { passive: true });
-  window.addEventListener('resize', onScrollOrResize);
-}
-
-// Hover glow effect for social cards
-function initHoverGlow() {
-  const socialCards = document.querySelectorAll('.social-card');
-  
-  socialCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      // Create glow effect using CSS custom properties
-      card.style.setProperty('--glow-x', `${x}px`);
-      card.style.setProperty('--glow-y', `${y}px`);
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.setProperty('--glow-x', '-1000px');
-      card.style.setProperty('--glow-y', '-1000px');
-    });
-  });
 }

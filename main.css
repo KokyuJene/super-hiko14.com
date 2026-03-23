@@ -1902,38 +1902,22 @@ html[data-theme="dark"] .link-card:hover .link-card-arrow {
   color: inherit;
   text-decoration: none;
   position: relative;
-  transition: 
-    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-    background 0.35s ease-out,
-    border 0.35s ease-out,
-    border-top-color 0.35s ease-out,
-    gap 0.35s ease-out,
-    opacity 0.6s ease-out,
-    box-shadow 0.35s ease-out;
+  transition: transform 0.15s ease-out, background 0.15s ease-out, border 0.15s ease-out, border-top-color 0.15s ease-out, gap 0.15s ease-out, opacity 0.6s ease-out;
   overflow: hidden;
-  --glow-x: -1000px;
-  --glow-y: -1000px;
 }
 
 .js-animate .social-card {
   opacity: 0;
-  transform: translateY(20px) scale(0.95);
+  transform: scale(0.95);
 }
 
 .box.is-visible .social-card {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: scale(1);
 }
 
-/* SNSカードのスタッガー登場アニメーション */
-.box.is-visible .social-card:nth-child(1) { transition-delay: 0.05s; }
-.box.is-visible .social-card:nth-child(2) { transition-delay: 0.1s; }
-.box.is-visible .social-card:nth-child(3) { transition-delay: 0.15s; }
-.box.is-visible .social-card:nth-child(4) { transition-delay: 0.2s; }
-.box.is-visible .social-card:nth-child(5) { transition-delay: 0.25s; }
-.box.is-visible .social-card:nth-child(6) { transition-delay: 0.3s; }
-.box.is-visible .social-card:nth-child(7) { transition-delay: 0.35s; }
-.box.is-visible .social-card:nth-child(n+8) { transition-delay: 0.4s; }
+/* SNSカードのスタッガー登場 */
+.box.is-visible .social-card:nth-child(n) { transition-delay: 0s; }
 
 .profile-social-list .social-card:first-child {
   border-top: 1px solid rgba(0, 0, 0, 0.04);
@@ -1941,28 +1925,6 @@ html[data-theme="dark"] .link-card:hover .link-card-arrow {
 
 .profile-social-list .social-card:first-child:hover {
   border-top-color: rgba(39, 87, 102, 0.3);
-}
-
-.social-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  background: 
-    radial-gradient(
-      150px circle at var(--glow-x) var(--glow-y),
-      rgba(39, 87, 102, 0.3) 0%,
-      rgba(39, 87, 102, 0.15) 30%,
-      transparent 60%
-    ),
-    linear-gradient(135deg, rgba(39, 87, 102, 0.15) 0%, rgba(186, 255, 192, 0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.35s ease-out;
-  pointer-events: none;
-}
-
-.social-card:hover::before {
-  opacity: 1;
 }
 
 .social-card::after {
@@ -1981,12 +1943,10 @@ html[data-theme="dark"] .link-card:hover .link-card-arrow {
 }
 
 .social-card:hover {
-  transform: translateY(-8px) scale(1.03); /* 少し浮かせて拡大 */
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(39, 87, 102, 0.4);
-  box-shadow: 
-    0 12px 32px rgba(39, 87, 102, 0.2),
-    0 0 20px rgba(186, 255, 192, 0.15);
+  transform: translateY(-6px) scale(1.02); /* 少し浮かせて拡大 */
+  background: rgba(0, 0, 0, 0.01);
+  border-color: rgba(39, 87, 102, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* 浮遊感 */
 }
 
 /* ダークモードでのホバー影 */
@@ -2002,29 +1962,17 @@ html[data-theme="dark"] .social-card:hover {
   place-items: center;
   background: #f7f7f7;
   flex-shrink: 0;
-  transition: 
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-    background 0.35s ease-out,
-    box-shadow 0.35s ease-out;
-  position: relative;
-  z-index: 1;
+  transition: transform 0.3s ease;
 }
 
 .social-card:hover .social-card-icon-wrap {
-  transform: scale(1.2) rotate(6deg);
-  background: rgba(39, 87, 102, 0.15);
-  box-shadow: 0 8px 16px rgba(39, 87, 102, 0.2);
+  transform: scale(1.05); /* アイコンも少し強調 */
 }
 
 .social-icon {
   width: 24px; /* 少し大きく */
   height: 24px;
   object-fit: contain;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.social-card:hover .social-icon {
-  transform: scale(1.15);
 }
 
 /* 白アイコン: ライトモードでは黒に反転 */
@@ -2044,26 +1992,12 @@ html[data-theme="dark"] .social-card:hover {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  z-index: 1;
-}
-
-.social-card:hover .social-card-info {
-  transform: translateX(4px);
 }
 
 .social-card-name {
   font-size: 1.05rem; /* ちょっとだけ大きく */
   font-weight: 600;
   line-height: 1.2;
-  transition: color 0.35s ease-out, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: left center;
-}
-
-.social-card:hover .social-card-name {
-  color: #275766;
-  transform: scaleX(1.05);
 }
 
 .social-card-handle {
@@ -2071,13 +2005,6 @@ html[data-theme="dark"] .social-card:hover {
   font-size: 0.82rem; /* 少し大きく */
   color: #adb5bd;
   letter-spacing: 0.02em;
-  transition: color 0.35s ease-out, opacity 0.35s ease-out;
-  opacity: 0.8;
-}
-
-.social-card:hover .social-card-handle {
-  color: #275766;
-  opacity: 1;
 }
 
 /* Discord stats badge */
@@ -2149,61 +2076,17 @@ html[data-theme="dark"] .yt-stats {
   height: 16px;
   color: #dee2e6;
   flex-shrink: 0;
-  transition: 
-    color 0.35s ease-out,
-    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
-  z-index: 1;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-card-arrow svg {
   width: 100%;
   height: 100%;
-  display: block;
 }
 
 .social-card:hover .social-card-arrow {
   color: #275766;
-  transform: translate(6px, -6px) rotate(45deg);
-}
-
-/* タッチ端末では hover 残留を防ぎ、active で短い反応を返す */
-@media (hover: none), (pointer: coarse) {
-  .social-card:hover,
-  .social-card:hover .social-card-info,
-  .social-card:hover .social-card-name,
-  .social-card:hover .social-card-handle,
-  .social-card:hover .social-card-arrow,
-  .social-card:hover .social-card-icon-wrap,
-  .social-card:hover .social-icon {
-    transform: none;
-    color: inherit;
-    opacity: inherit;
-    box-shadow: none;
-    background: inherit;
-    border-color: inherit;
-  }
-
-  .social-card::before {
-    opacity: 0 !important;
-  }
-
-  .social-card::after {
-    width: 0;
-  }
-
-  .social-card:active {
-    transform: scale(0.985);
-  }
-
-  .social-card:active::after {
-    width: 100%;
-  }
-
-  .social-card:active .social-card-arrow {
-    color: #275766;
-    transform: translate(3px, -3px);
-  }
+  transform: translate(2px, -2px);
 }
 
 /* Profile Hero — Dark mode */
@@ -2393,22 +2276,7 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
 
 @media screen and (max-width: 768px) {
   .kj-hero {
-    height: auto;
-    min-height: 250px;
-    padding: 36px 16px 30px;
-  }
-
-  .kj-logo {
-    width: 82px;
-    height: 82px;
-  }
-
-  .kj-title {
-    font-size: 1.8rem;
-  }
-
-  .kj-desc {
-    font-size: 0.88rem;
+    height: 140px;
   }
 
   .kj-link-list {

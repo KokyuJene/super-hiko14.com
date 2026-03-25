@@ -3456,7 +3456,7 @@ html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
 }
 
 .site-nav-drawer ul li a:hover .site-nav-item-icon svg {
-  color: #6ddbb0;
+  color: #275766;
 }
 
 .site-nav-drawer ul li a[aria-current="page"] .site-nav-item-icon {

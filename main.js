@@ -138,7 +138,7 @@ function initAboutTabs() {
   const contents = document.querySelectorAll('.tab-content');
   if (!tabs.length || !contents.length || tabs.length !== contents.length) return;
 
-  const tabKeys = ['overview', 'details', 'links'];
+  const tabKeys = ['overview', 'details'];
 
   function resolveTabIndex(rawTab) {
     if (!rawTab) return 0;
@@ -157,10 +157,7 @@ function initAboutTabs() {
       details: 1,
       detail: 1,
       shosai: 1,
-      '詳細': 1,
-      links: 2,
-      link: 2,
-      'リンク': 2
+      '詳細': 1
     };
 
     return aliases[value] ?? 0;

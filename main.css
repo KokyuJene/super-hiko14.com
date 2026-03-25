@@ -1076,14 +1076,12 @@ html[data-theme="dark"] .error-description {
   object-fit: cover;
   margin: 0 auto 22px;
   display: block;
-  box-shadow: 0 0 0 0 transparent;
-  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  transition: transform 0.3s ease;
 }
 
 .profile-image:hover {
   animation: swing 0.8s ease-in-out both;
   transform-origin: top center;
-  box-shadow: 0 0 0 4px rgba(186, 255, 192, 0.35), 0 0 0 7px rgba(39, 87, 102, 0.12);
 }
 
 @keyframes swing {
@@ -1946,12 +1944,10 @@ html[data-theme="dark"] .link-card:hover .link-card-arrow {
   transform: translateY(-6px) scale(1.02); /* 少し浮かせて拡大 */
   background: rgba(0, 0, 0, 0.01);
   border-color: rgba(39, 87, 102, 0.3);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* 浮遊感 */
 }
 
 /* ダークモードでのホバー影 */
 html[data-theme="dark"] .social-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .social-card-icon-wrap {
@@ -2029,7 +2025,6 @@ html[data-theme="dark"] .social-card:hover {
   height: 7px;
   border-radius: 50%;
   background: #23a55a;
-  box-shadow: 0 0 5px rgba(35, 165, 90, 0.65);
   flex-shrink: 0;
 }
 
@@ -2364,13 +2359,11 @@ html[data-theme="dark"] .social-card:hover .social-card-arrow {
   opacity: 0;
   transition: all 0.2s ease;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 html[data-theme="light"] .calendar-legend-popover {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .calendar-legend-popover.is-visible {
@@ -2723,8 +2716,7 @@ html[data-theme="dark"] .days-counter {
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   cursor: pointer;
   border-radius: 50%;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 0 0 0 rgba(109, 219, 176, 0);
-  transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: all 0.25s ease;
   padding: 0;
   position: relative;
   z-index: 1;
@@ -2732,14 +2724,12 @@ html[data-theme="dark"] .days-counter {
 
 .site-nav-toggle:hover {
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 0 rgba(109, 219, 176, 0);
   border-color: rgba(0, 0, 0, 0.14);
 }
 
 .site-nav-toggle[aria-expanded="true"] {
   background: rgba(255, 255, 255, 0.96);
   border-color: rgba(109, 219, 176, 0.4);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(109, 219, 176, 0.15);
 }
 
 .site-nav-toggle span {
@@ -2781,9 +2771,6 @@ html[data-theme="dark"] .days-counter {
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 18px;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.04),
-    0 12px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
@@ -2840,7 +2827,7 @@ html[data-theme="dark"] .form-label {
 }
 
 .required-mark {
-  color: #d946a6;
+  color: #d9465f;
   font-weight: 600;
 }
 
@@ -2867,12 +2854,6 @@ html[data-theme="dark"] .form-textarea {
 .form-textarea:focus {
   outline: none;
   border-color: #6ddbb0;
-  box-shadow: 0 0 0 3px rgba(109, 219, 176, 0.1);
-}
-
-html[data-theme="dark"] .form-input:focus,
-html[data-theme="dark"] .form-textarea:focus {
-  box-shadow: 0 0 0 3px rgba(109, 219, 176, 0.15);
 }
 
 .form-input::placeholder,
@@ -2924,15 +2905,10 @@ html[data-theme="dark"] .form-error {
 }
 
 .submit-button {
-  background: linear-gradient(135deg, #6ddbb0 0%, #5bc9a0 100%);
+  background: #275766;
   color: #fff;
-  box-shadow: 0 2px 8px rgba(109, 219, 176, 0.2);
 }
 
-.submit-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(109, 219, 176, 0.3);
-}
 
 .submit-button:active:not(:disabled) {
   transform: translateY(0);
@@ -3199,7 +3175,6 @@ html[data-theme="dark"] .site-nav-toggle:hover {
 html[data-theme="dark"] .site-nav-toggle[aria-expanded="true"] {
   background: rgba(22, 22, 22, 0.96);
   border-color: rgba(109, 219, 176, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(109, 219, 176, 0.1);
 }
 
 html[data-theme="dark"] .site-nav-toggle span {
@@ -3209,9 +3184,6 @@ html[data-theme="dark"] .site-nav-toggle span {
 html[data-theme="dark"] .site-nav-drawer {
   background: rgba(10, 10, 10, 0.88);
   border-color: rgba(255, 255, 255, 0.07);
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.3),
-    0 12px 40px rgba(0, 0, 0, 0.6);
 }
 
 html[data-theme="dark"] .site-nav-drawer::before {

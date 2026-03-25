@@ -480,10 +480,11 @@ function initSiteNav() {
   }
 
   function closeNav() {
+    const wasOpen = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', 'false');
     drawer.setAttribute('aria-hidden', 'true');
     backdrop.classList.remove('is-visible');
-    if (window.innerWidth <= 680) {
+    if (window.innerWidth <= 680 && wasOpen) {
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.left = '';

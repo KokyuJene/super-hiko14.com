@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "buildCommand": "echo 'Build complete'",
+  "functions": {
+    "api/*.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "EMAIL_USER": "@EMAIL_USER",
+    "EMAIL_PASSWORD": "@EMAIL_PASSWORD"
+  },
+  "redirects": [
+    {
+      "source": "/contact",
+      "destination": "/contact/index.html",
+      "permanent": false
+    }
+  ]
+}

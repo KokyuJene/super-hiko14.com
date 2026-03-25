@@ -1,0 +1,22 @@
+{
+  "name": "super-hiko14-contact",
+  "version": "1.0.0",
+  "description": "Super Hiko14 Contact Form API",
+  "main": "api/contact.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "contact",
+    "form",
+    "vercel"
+  ],
+  "author": "Super Hiko14",
+  "license": "MIT"
+}

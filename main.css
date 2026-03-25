@@ -2808,6 +2808,234 @@ html[data-theme="dark"] .days-counter {
   transform: translateY(0) scale(1);
 }
 
+/* =====================
+   お問い合わせページ
+   ===================== */
+
+/* フォームスタイル */
+.contact-form {
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+html[data-theme="dark"] .form-label {
+  color: #ddd;
+}
+
+.required-mark {
+  color: #d946a6;
+  font-weight: 600;
+}
+
+.form-input,
+.form-textarea {
+  padding: 10px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+html[data-theme="dark"] .form-input,
+html[data-theme="dark"] .form-textarea {
+  background: #1e1e1e;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #6ddbb0;
+  box-shadow: 0 0 0 3px rgba(109, 219, 176, 0.1);
+}
+
+html[data-theme="dark"] .form-input:focus,
+html[data-theme="dark"] .form-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(109, 219, 176, 0.15);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: #999;
+}
+
+html[data-theme="dark"] .form-input::placeholder,
+html[data-theme="dark"] .form-textarea::placeholder {
+  color: #666;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
+}
+
+.form-error {
+  display: block;
+  color: #d946a6;
+  font-size: 13px;
+  margin-top: 6px;
+  min-height: 18px;
+}
+
+html[data-theme="dark"] .form-error {
+  color: #ff6b9d;
+}
+
+/* フォームアクション */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  justify-content: center;
+}
+
+.submit-button,
+.reset-button {
+  padding: 10px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #6ddbb0 0%, #5bc9a0 100%);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(109, 219, 176, 0.2);
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(109, 219, 176, 0.3);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.reset-button {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #d0d0d0;
+}
+
+html[data-theme="dark"] .reset-button {
+  background: #2a2a2a;
+  color: #ddd;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.reset-button:hover:not(:disabled) {
+  background: #e8e8e8;
+}
+
+html[data-theme="dark"] .reset-button:hover:not(:disabled) {
+  background: #333;
+}
+
+.reset-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* フォームステータスメッセージ */
+.form-status {
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+}
+
+.form-status:not(:empty) {
+  display: block;
+}
+
+.form-status--success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+html[data-theme="dark"] .form-status--success {
+  background: rgba(109, 219, 176, 0.15);
+  color: #6ddbb0;
+  border: 1px solid rgba(109, 219, 176, 0.3);
+}
+
+.form-status--error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+html[data-theme="dark"] .form-status--error {
+  background: rgba(255, 107, 157, 0.15);
+  color: #ff6b9d;
+  border: 1px solid rgba(255, 107, 157, 0.3);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 9px 12px;
+    font-size: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .submit-button,
+  .reset-button {
+    width: 100%;
+    padding: 11px 20px;
+  }
+
+  .form-status {
+    margin-top: 18px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+}
+
 /* CSSカウンターで番号を自動付与 */
 .site-nav-drawer ul {
   list-style: none;

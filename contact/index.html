@@ -83,11 +83,13 @@
     <div class="box">
       <p class="page-eyebrow">super-hiko14.com/contact</p>
       <h1 class="title">Contact<span class="title-dot">.</span></h1>
-      <p class="sub-title">お気軽にご連絡ください</p>
+      <p class="sub-title">お問い合わせ</p>
     </div>
 
   <section id="main">
     <div class="box">
+      <p>気軽にお問い合わせください</p>
+      <p>送信してくださったメールアドレスに2~3日ほどで返します</p>
       <form class="contact-form" id="contactForm">
         <div class="form-group">
           <label for="email" class="form-label">
@@ -197,6 +199,26 @@
   const messageInput = document.getElementById('message');
   const formStatus = document.getElementById('formStatus');
   
+  // テキストエリア自動リサイズ機能
+  function autoResizeTextarea(textarea) {
+    textarea.style.height = 'auto';
+    const newHeight = textarea.scrollHeight;
+    textarea.style.height = newHeight + 'px';
+  }
+
+  // 入力時に高さを調整
+  messageInput.addEventListener('input', function() {
+    autoResizeTextarea(this);
+  });
+
+  // フォームリセット時に元の高さに戻す
+  form.addEventListener('reset', function() {
+    setTimeout(() => {
+      messageInput.style.height = 'auto';
+      messageInput.style.height = messageInput.scrollHeight + 'px';
+    }, 0);
+  });
+  
   // バリデーション関数
   function validateEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -270,6 +292,7 @@
         formStatus.textContent = 'メールを送信しました。ご連絡ありがとうございます！';
         form.reset();
         clearErrors();
+        messageInput.style.height = 'auto';
       } else {
         const data = await response.json();
         formStatus.className = 'form-status form-status--error';

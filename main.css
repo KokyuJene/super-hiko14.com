@@ -2856,6 +2856,12 @@ html[data-theme="dark"] .form-textarea {
   border-color: #6ddbb0;
 }
 
+html[data-theme="dark"] .form-input:focus,
+html[data-theme="dark"] .form-textarea:focus {
+  outline: none;
+  border-color: #2e5a68;
+}
+
 .form-input::placeholder,
 .form-textarea::placeholder {
   color: #999;
@@ -2867,9 +2873,10 @@ html[data-theme="dark"] .form-textarea::placeholder {
 }
 
 .form-textarea {
-  resize: vertical;
+  resize: none;
   min-height: 110px;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 .form-error {
@@ -2909,9 +2916,8 @@ html[data-theme="dark"] .form-error {
   color: #fff;
 }
 
-
-.submit-button:active:not(:disabled) {
-  transform: translateY(0);
+.submit-button:hover:not(:disabled) {
+  background: #1f4251;
 }
 
 .submit-button:disabled {
@@ -2922,13 +2928,11 @@ html[data-theme="dark"] .form-error {
 .reset-button {
   background: #f0f0f0;
   color: #333;
-  border: 1px solid #d0d0d0;
 }
 
 html[data-theme="dark"] .reset-button {
   background: #2a2a2a;
   color: #ddd;
-  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .reset-button:hover:not(:disabled) {
@@ -2936,7 +2940,7 @@ html[data-theme="dark"] .reset-button {
 }
 
 html[data-theme="dark"] .reset-button:hover:not(:disabled) {
-  background: #333;
+  background: #1b1b1b;
 }
 
 .reset-button:active:not(:disabled) {
@@ -2960,25 +2964,21 @@ html[data-theme="dark"] .reset-button:hover:not(:disabled) {
 .form-status--success {
   background: #d4edda;
   color: #155724;
-  border: 1px solid #c3e6cb;
 }
 
 html[data-theme="dark"] .form-status--success {
   background: rgba(109, 219, 176, 0.15);
   color: #6ddbb0;
-  border: 1px solid rgba(109, 219, 176, 0.3);
 }
 
 .form-status--error {
   background: #f8d7da;
   color: #721c24;
-  border: 1px solid #f5c6cb;
 }
 
 html[data-theme="dark"] .form-status--error {
   background: rgba(255, 107, 157, 0.15);
   color: #ff6b9d;
-  border: 1px solid rgba(255, 107, 157, 0.3);
 }
 
 /* レスポンシブ */
@@ -3133,6 +3133,11 @@ html[data-theme="dark"] .form-status--error {
 }
 
 .site-nav-drawer ul li a:hover .site-nav-item-arrow {
+  color: #275766;
+  transform: translateX(3px);
+}
+
+html[data-theme="dark"] .site-nav-drawer ul li a:hover .site-nav-item-arrow {
   color: #6ddbb0;
   transform: translateX(3px);
 }
@@ -3465,6 +3470,13 @@ html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
 /* ---- Focus trap visible focus ---- */
 .site-nav-drawer a:focus-visible,
 .site-nav-drawer button:focus-visible {
+  outline: 2px solid #2e5a68;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+html[data-theme="dark"] .site-nav-drawer a:focus-visible,
+html[data-theme="dark"] .site-nav-drawer button:focus-visible {
   outline: 2px solid #6ddbb0;
   outline-offset: 2px;
   border-radius: 4px;

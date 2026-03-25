@@ -4,8 +4,6 @@
   "description": "Super Hiko14 Contact Form API",
   "main": "api/contact.js",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "vercel build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

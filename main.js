@@ -376,6 +376,37 @@ function initSiteNav() {
   const toggle = document.querySelector('.site-nav-toggle');
   const drawer = document.querySelector('.site-nav-drawer');
   if (!toggle || !drawer || !nav) return;
+  let lockedScrollY = 0;
+
+  /* ---------- Submenu data for each site ---------- */
+  const SUBMENU_DATA = {
+    'super-hiko14.com': [
+      { label: 'Contact', url: 'https://super-hiko14.com/contact/' }
+    ],
+    'about.super-hiko14.com': [
+      { label: 'Super Hiko14', url: 'https://about.super-hiko14.com/super-hiko14/' },
+      { label: 'KokyuJene', url: 'https://about.super-hiko14.com/kokyujene/' }
+    ],
+    'tools.super-hiko14.com': [
+      { label: 'Base64', url: 'https://tools.super-hiko14.com/base64/' },
+      { label: 'Calendar(alpha)', url: 'https://tools.super-hiko14.com/calendar/' },
+      { label: 'Clock(beta)', url: 'https://tools.super-hiko14.com/clock/' },
+      { label: 'Memo', url: 'https://tools.super-hiko14.com/memo/' },
+      { label: 'Polygon', url: 'https://tools.super-hiko14.com/polygon/' },
+      { label: 'Study', url: 'https://tools.super-hiko14.com/study/' }
+    ],
+    'kokyujene.super-hiko14.com': [],
+    'super-hiko14.me': [
+      { label: 'Home', url: 'https://super-hiko14.me/' },
+      { label: 'Diary', url: 'https://super-hiko14.me/diary/' }
+    ],
+    'legal.super-hiko14.com': [
+      { label: 'Privacy Policy', url: 'https://legal.super-hiko14.com/privacypolicy/' },
+      { label: 'Terms', url: 'https://legal.super-hiko14.com/terms/' },
+      { label: 'Auth Privacy Policy', url: 'https://legal.super-hiko14.com/auth/privacypolicy/' },
+      { label: 'Auth Terms', url: 'https://legal.super-hiko14.com/auth/terms/' }
+    ]
+  };
 
   /* ---------- inject backdrop ---------- */
   const backdrop = document.createElement('div');
@@ -404,6 +435,10 @@ function initSiteNav() {
     'super-hiko14.me':         '<path d="M18 2h-2V1c0-.6-.4-1-1-1s-1 .4-1 1v1H9V1c0-.6-.4-1-1-1S7 .4 7 1v1H5C3.9 2 3 2.9 3 4v16c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H5V8h13v12zM7 10h5v5H7z"/>',
     'legal.super-hiko14.com':  '<path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/>',
   };
+  
+  // SVG arrow definitions (always show down arrow)
+  const downArrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M 6 9 L 12 15 L 18 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
   drawer.querySelectorAll('a[href]').forEach(link => {
     try {
       const host = new URL(link.href).hostname;
@@ -418,12 +453,28 @@ function initSiteNav() {
     } catch (_) {}
   });
 
+  // Convert arrow text to SVG
+  const arrows = drawer.querySelectorAll('.site-nav-item-arrow');
+  arrows.forEach((arrowEl) => {
+    if (!arrowEl) return;
+    arrowEl.innerHTML = downArrowSvg;
+    arrowEl.style.display = 'inline-flex';
+  });
+
   /* ---------- open / close ---------- */
   function openNav() {
     toggle.setAttribute('aria-expanded', 'true');
     drawer.setAttribute('aria-hidden', 'false');
     backdrop.classList.add('is-visible');
-    if (window.innerWidth <= 680) document.body.classList.add('site-nav-open');
+    if (window.innerWidth <= 680) {
+      lockedScrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.classList.add('site-nav-open');
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + lockedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+    }
     // フォーカスを最初のリンクへ（少し遅延）
     setTimeout(() => {
       const first = drawer.querySelector('a[href]');
@@ -435,6 +486,14 @@ function initSiteNav() {
     toggle.setAttribute('aria-expanded', 'false');
     drawer.setAttribute('aria-hidden', 'true');
     backdrop.classList.remove('is-visible');
+    if (window.innerWidth <= 680) {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, lockedScrollY);
+    }
     document.body.classList.remove('site-nav-open');
   }
 
@@ -488,16 +547,78 @@ function initSiteNav() {
     if (dy < -60) closeNav(); // 上スワイプで閉じる
   }, { passive: true });
 
-  /* ---------- current page highlight ---------- */
+  /* ---------- current page highlight & accordion setup ---------- */
   try {
     const currentHost = location.hostname;
+    
     drawer.querySelectorAll('a[href]').forEach(link => {
       try {
-        const linkHost = new URL(link.href).hostname;
-        if (linkHost === currentHost) {
+        const linkUrl = new URL(link.href);
+        const linkHost = linkUrl.hostname;
+        const linkLi = link.closest('li');
+        const arrowEl = link.querySelector('.site-nav-item-arrow');
+        
+        // Check if this is the current domain
+        const isCurrentDomain = linkHost === currentHost;
+        
+        if (isCurrentDomain) {
           link.setAttribute('aria-current', 'page');
+          // Change arrow to down arrow for current page
+          if (arrowEl) {
+            arrowEl.innerHTML = downArrowSvg;
+            arrowEl.classList.add('is-current-page');
+          }
         } else {
           link.removeAttribute('aria-current');
+        }
+        
+        // Setup accordion for links with submenu
+        const submenu = SUBMENU_DATA[linkHost];
+        if (submenu && submenu.length > 0 && linkLi && arrowEl) {
+          // Create submenu container
+          let submenuEl = linkLi.querySelector('.site-nav-submenu');
+          if (!submenuEl) {
+            submenuEl = document.createElement('ul');
+            submenuEl.className = 'site-nav-submenu';
+            submenuEl.setAttribute('aria-hidden', 'true');
+            linkLi.appendChild(submenuEl);
+            
+            // Add submenu items
+            submenu.forEach(item => {
+              const li = document.createElement('li');
+              const a = document.createElement('a');
+              a.href = item.url;
+              a.textContent = item.label;
+              li.appendChild(a);
+              submenuEl.appendChild(li);
+            });
+          }
+          
+          // Make arrow toggle submenu (always clickable for submenu)
+          arrowEl.style.cursor = 'pointer';
+          arrowEl.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const isOpen = submenuEl.classList.contains('is-open');
+            if (!isOpen) {
+              // Open
+              submenuEl.classList.add('is-open');
+              submenuEl.setAttribute('aria-hidden', 'false');
+            } else {
+              // Close
+              submenuEl.classList.remove('is-open');
+              submenuEl.setAttribute('aria-hidden', 'true');
+            }
+          });
+        } else if (isCurrentDomain && linkLi && arrowEl) {
+          // Current page without submenu: prevent default and scroll to top on click
+          arrowEl.style.cursor = 'pointer';
+          arrowEl.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            closeNav();
+          });
         }
       } catch (_) {}
     });

@@ -3013,17 +3013,18 @@ html[data-theme="dark"] .form-status--error {
 .site-nav-drawer ul {
   list-style: none;
   margin: 0;
-  padding: 6px 0 10px;
-  counter-reset: nav-num;
+  padding: 0;
 }
 
 .site-nav-drawer > ul {
   padding: 6px 0 10px;
+  counter-reset: nav-num;
 }
 
 .site-nav-drawer > ul > li {
   counter-increment: nav-num;
   position: relative;
+  margin-bottom: 2px;
 }
 
 /* ホバー時の左グラデーションライン */
@@ -3031,8 +3032,8 @@ html[data-theme="dark"] .form-status--error {
   content: '';
   position: absolute;
   left: 0;
-  top: 18%;
-  bottom: 18%;
+  top: 6px;
+  bottom: 6px;
   width: 2px;
   border-radius: 0 2px 2px 0;
   background: linear-gradient(to bottom, #275766, #baffc0);
@@ -3142,6 +3143,11 @@ html[data-theme="dark"] .form-status--error {
   padding: 0;
   margin: 0;
   border: 1px solid transparent;
+  transform: rotate(0deg);
+}
+
+.site-nav-item-arrow.is-open {
+  transform: rotate(180deg);
 }
 
 .site-nav-item-arrow svg {
@@ -3159,7 +3165,14 @@ html[data-theme="dark"] .form-status--error {
 
 .site-nav-drawer > ul > li > a:hover .site-nav-item-arrow {
   color: #275766;
+}
+
+.site-nav-drawer > ul > li > a:hover .site-nav-item-arrow:not(.is-open) {
   transform: translateY(2px);
+}
+
+.site-nav-drawer > ul > li > a:hover .site-nav-item-arrow.is-open {
+  transform: translateY(2px) rotate(180deg);
 }
 
 .site-nav-drawer > ul > li > a[aria-current="page"]:hover .site-nav-item-arrow {
@@ -3168,7 +3181,14 @@ html[data-theme="dark"] .form-status--error {
 
 html[data-theme="dark"] .site-nav-drawer > ul > li > a:hover .site-nav-item-arrow {
   color: #6ddbb0;
+}
+
+html[data-theme="dark"] .site-nav-drawer > ul > li > a:hover .site-nav-item-arrow:not(.is-open) {
   transform: translateY(2px);
+}
+
+html[data-theme="dark"] .site-nav-drawer > ul > li > a:hover .site-nav-item-arrow.is-open {
+  transform: translateY(2px) rotate(180deg);
 }
 
 html[data-theme="dark"] .site-nav-drawer > ul > li > a[aria-current="page"]:hover .site-nav-item-arrow {
@@ -3202,17 +3222,18 @@ html[data-theme="dark"] .site-nav-drawer > ul > li > a[aria-current="page"]:hove
 .site-nav-submenu {
   list-style: none;
   margin: 0;
-  padding: 2px 0 6px;
+  padding: 0;
   background: rgba(0, 0, 0, 0.01);
   max-height: 0;
   overflow: hidden;
   transform: translateY(-6px);
   pointer-events: none;
-  transition: max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.26s ease, transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: max-height 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.26s ease, transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), padding 0.34s cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 0;
 }
 
 .site-nav-submenu.is-open {
+  padding: 2px 0 6px;
   max-height: 420px;
   opacity: 1;
   transform: translateY(0);
@@ -3419,8 +3440,8 @@ html[data-theme="dark"] .site-nav-drawer ul li a[aria-current="page"]::before {
   }
 
   .site-nav-drawer > ul > li::before {
-    top: 22%;
-    bottom: 22%;
+    top: 10px;
+    bottom: 10px;
     width: 3px;
   }
 

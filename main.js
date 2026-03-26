@@ -433,8 +433,9 @@ function initSiteNav() {
     'legal.super-hiko14.com':  '<path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4l5 2.18V11c0 3.5-2.33 6.79-5 7.93-2.67-1.14-5-4.43-5-7.93V7.18L12 5z"/>',
   };
   
-  // SVG arrow definitions (always show down arrow)
+  // SVG arrow definitions
   const downArrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M 6 9 L 12 15 L 18 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const rightArrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M 9 6 L 15 12 L 9 18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
   drawer.querySelectorAll('a[href]').forEach(link => {
     try {
@@ -563,6 +564,10 @@ function initSiteNav() {
         // Setup accordion for links with submenu
         const submenu = SUBMENU_DATA[linkHost];
         if (submenu && submenu.length > 0 && linkLi && arrowEl) {
+          // Has submenu: use down arrow
+          arrowEl.innerHTML = downArrowSvg;
+          arrowEl.style.display = 'inline-flex';
+          
           // Create submenu container
           let submenuEl = linkLi.querySelector('.site-nav-submenu');
           if (!submenuEl) {
@@ -592,14 +597,18 @@ function initSiteNav() {
               // Open
               submenuEl.classList.add('is-open');
               submenuEl.setAttribute('aria-hidden', 'false');
+              arrowEl.classList.add('is-open');
             } else {
               // Close
               submenuEl.classList.remove('is-open');
               submenuEl.setAttribute('aria-hidden', 'true');
+              arrowEl.classList.remove('is-open');
             }
           });
         } else if (isCurrentDomain && linkLi && arrowEl) {
-          // Current page without submenu: prevent default and scroll to top on click
+          // Current page without submenu: use right arrow
+          arrowEl.innerHTML = rightArrowSvg;
+          arrowEl.style.display = 'inline-flex';
           arrowEl.style.cursor = 'pointer';
           arrowEl.addEventListener('click', (e) => {
             e.preventDefault();

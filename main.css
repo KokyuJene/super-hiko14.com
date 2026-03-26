@@ -2792,6 +2792,23 @@ html[data-theme="dark"] .days-counter {
   transform: translateY(0) scale(1);
 }
 
+/* PCのみ最大高さを制限（デスクトップ向け） */
+@media (min-width: 769px) {
+  .site-nav-drawer {
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+/* モバイルは最大高さ制限を無効化 */
+@media (max-width: 768px) {
+  .site-nav-drawer {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
 /* =====================
    お問い合わせページ
    ===================== */
@@ -3054,7 +3071,7 @@ html[data-theme="dark"] .form-status--error {
   color: #111;
   text-decoration: none;
   gap: 8px;
-  transition: background 0.18s ease, color 0.18s ease;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
 /* 番号（CSSカウンター） */

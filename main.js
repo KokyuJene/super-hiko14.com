@@ -535,16 +535,6 @@ function initSiteNav() {
     }
   });
 
-  /* ---------- スワイプで閉じる（モバイル） ---------- */
-  let touchStartY = 0;
-  drawer.addEventListener('touchstart', (e) => {
-    touchStartY = e.touches[0].clientY;
-  }, { passive: true });
-  drawer.addEventListener('touchend', (e) => {
-    const dy = e.changedTouches[0].clientY - touchStartY;
-    if (dy < -60) closeNav(); // 上スワイプで閉じる
-  }, { passive: true });
-
   /* ---------- current page highlight & accordion setup ---------- */
   try {
     const currentHost = location.hostname;

@@ -21,7 +21,24 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { email, name, message } = req.body;
+  const { email, name, message, recaptchaToken } = req.body;
+
+  // reCAPTCHA v3 検証
+  if (!recaptchaToken) {
+    return res.status(400).json({ message: 'reCAPTCHA トークンがありません' });
+  }
+  try {
+    const verifyRes = await fetch(
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
+      { method: 'POST' }
+    );
+    const verifyData = await verifyRes.json();
+    if (!verifyData.success || verifyData.score < 0.5) {
+      return res.status(403).json({ message: 'Bot判定されました。しばらく時間をおいてお試しください。' });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: 'reCAPTCHA の検証に失敗しました' });
+  }
 
   // バリデーション
   if (!email || !name || !message) {

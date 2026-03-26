@@ -9,6 +9,7 @@
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../main.css">
   <script src="../main.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfsiZgsAAAAANQMq3doqNAMje_TpSltoO4JiI9T"></script>
 </head>
 
 <body>
@@ -140,13 +141,28 @@
 
         <div class="form-actions">
           <button type="submit" class="submit-button">送信</button>
+        </div>
+        <div class="form-actions">
           <button type="reset" class="reset-button">クリア</button>
         </div>
+
+        <p class="recaptcha-text" style="font-size: 11px; color: #888; margin-top: 10px; text-align: center;">
+          This site is protected by reCAPTCHA and the Google <br>
+          <a href="https://policies.google.com/privacy" style="color: inherit;">Privacy Policy</a> and
+          <a href="https://policies.google.com/terms" style="color: inherit;">Terms of Service</a> apply.
+        </p>
 
         <div class="form-status" id="formStatus"></div>
       </form>
     </div>
   </section>
+
+  <style>
+    /* reCAPTCHA バッジが「トップへ戻る」ボタンと重ならないように位置を調整 */
+    .grecaptcha-badge { 
+      bottom: 80px !important; 
+    }
+  </style>
 
     <div class="box">
       <div class="footer">
@@ -274,6 +290,9 @@
     formStatus.textContent = '';
 
     try {
+      // reCAPTCHA v3 トークン取得
+      const recaptchaToken = await grecaptcha.execute('6LfsiZgsAAAAANQMq3doqNAMje_TpSltoO4JiI9T', { action: 'contact' });
+
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -283,6 +302,7 @@
           email: emailInput.value,
           name: nameInput.value,
           message: messageInput.value,
+          recaptchaToken,
         }),
       });
 
